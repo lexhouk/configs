@@ -1,0 +1,12 @@
+[
+  {
+    "keys": ["ctrl+shift+1"],
+    "command": "insert_snippet",
+    "args": {"contents": "drupal_set_message('<pre>' . var_export(, TRUE) . '</pre>');"}
+  },
+  {
+    "keys": ["ctrl+shift+2"],
+    "command": "insert_snippet",
+    "args": {"contents": "drupal_set_message('<pre>' . var_export(array_keys(), TRUE) . '</pre>');"}
+  },
+]
