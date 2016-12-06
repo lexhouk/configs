@@ -160,7 +160,12 @@ drush_clear_message() {
 
 drush_clear() {
   drush_clear_message
-  drush cc all
+
+  if [ -e core ]; then
+    drush cr
+  else
+    drush cc all
+  fi
 }
 
 alias edc=drush_clear
