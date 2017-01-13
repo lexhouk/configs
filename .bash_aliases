@@ -236,21 +236,6 @@ drupal_module() {
 
 alias ecu=drupal_module
 
-# Others
-
-alias esf='cd /hdd/www/'
-alias esp='sudo chown -R www-data:www-data sites/default '
-alias esc='nano ~/.bash_aliases'
-
-search_command() {
-  cat ~/.bash_aliases | grep "$1"
-}
-
-alias escf=search_command
-
-alias esh='sudo gedit /etc/hosts'
-alias q='exit'
-
 # Docker
 
 alias edrs='sudo service docker start '
@@ -279,3 +264,36 @@ alias edra='sudo chmod +x $(find . -name "*.sh") '
 # Tar
 
 alias ete='tar zxfv '
+
+# Others
+
+alias esf='cd /hdd/www/'
+alias esp='sudo chown -R www-data:www-data sites/default '
+alias esc='nano ~/.bash_aliases'
+
+search_command() {
+  cat ~/.bash_aliases | grep "$1"
+}
+
+alias escf=search_command
+
+alias esh='sudo gedit /etc/hosts'
+
+execute_system_enviroment() {
+  STATUS=$(sudo service docker status)
+  if [ "$STATUS" == "docker stop/waiting" ]; then
+    show_message "Changing enviroment from local to Docker..."
+    eap
+    emp
+    edrs
+  else
+    show_message "Changing enviroment from Docker to local..."
+    edrp
+    eas
+    ems
+  fi
+}
+
+alias ese=execute_system_enviroment
+
+alias q='exit'
