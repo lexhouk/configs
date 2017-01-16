@@ -34,6 +34,13 @@ alias egrs='git remote -v'
 alias egra='git remote add '
 alias egrao='git remote add origin '
 
+execute_git_remote_change() {
+  show_message "Git: change origin URL to remote repository..."
+  git remote set-url origin $1
+}
+
+alias egrc=execute_git_remote_change
+
 git_clone() {
   git clone $1 $2
   cd $2
