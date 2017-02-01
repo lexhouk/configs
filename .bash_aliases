@@ -129,17 +129,18 @@ mysql_drop_db() {
 
 alias emd=mysql_drop_db
 
-mysql_reload_db() {
-  show_message "Deleting \"$1\" database..."
-  mysql -u root -proot -e "drop database $1"
-  show_message "Creating \"$1\" database..."
-  mysql -u root -proot -e "create database $1"
-  show_message "Loading \"$1\" database from \"$2\" file..."
-  pv $2 | mysql -u root -proot $1
-  show_message "Recreated \"$1\" database and load data from \"$2\" dump file."
+execute_mysql_reload() {
+  emd $1
+  emc $1
+
+  if [ -e "$2" ]; then
+    show_message "Loading \"$1\" database from \"$2\" file..."
+    pv $2 | mysql -u root -proot $1
+    show_message "Recreated \"$1\" database and load data from \"$2\" dump file."
+  fi
 }
 
-alias emr=mysql_reload_db
+alias emr=execute_mysql_reload
 
 mysql_create_user() {
   mysql -u root -proot -e "CREATE USER '$1'@'localhost' IDENTIFIED BY '$2'"
