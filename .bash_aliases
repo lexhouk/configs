@@ -227,6 +227,10 @@ alias eap='sudo service apache2 stop '
 alias eae='sudo a2ensite '
 alias ead='sudo a2dissite '
 
+# Tar
+
+alias ete='tar zxfv '
+
 # Drupal
 
 drupal_db() {
@@ -235,14 +239,21 @@ drupal_db() {
 
 alias ecd=drupal_db
 
-drupal_module() {
-  rm -rf $2
-  wget $1$2$3
-  tar zxfv $2$3
-  rm $2$3
+execute_cms_update() {
+  if [ -e "$2" ]; then
+    rm -rf $2
+    wget $1$2$3
+    tar zxfv $2$3
+    rm $2$3
+  else
+    rm -rf $1
+    mv ~/Downloads/"$1".tar.gz .
+    ete "$1".tar.gz
+    rm "$1".tar.gz
+  fi
 }
 
-alias ecu=drupal_module
+alias ecu=execute_cms_update
 
 # Docker
 
@@ -268,10 +279,6 @@ alias edrc=docker_clear
 alias edrl='docker ps '
 alias edre='docker exec -it '
 alias edra='sudo chmod +x $(find . -name "*.sh") '
-
-# Tar
-
-alias ete='tar zxfv '
 
 # Others
 
