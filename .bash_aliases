@@ -280,6 +280,53 @@ alias edrl='docker ps '
 alias edre='docker exec -it '
 alias edra='sudo chmod +x $(find . -name "*.sh") '
 
+# Projects data
+
+parse_yaml() {
+  local file_name="$HOME"'/projects.yml'
+  local prefix='project_'
+  local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
+  sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
+      -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p"  $file_name |
+  awk -F$fs '{
+    indent = length($1)/2;
+    vname[indent] = $2;
+    for (i in vname) {if (i > indent) {delete vname[i]}}
+    if (length($3) > 0) {
+      vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
+      printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3);
+    }
+  }'
+}
+
+execute_project_update_all() {
+  eval $(parse_yaml)
+  local conf=$(( set -o posix ; set ) | cat | grep '^project\_[a-z]*\_local\_directory\='$(pwd)'$')
+
+  if [ -z $conf ]; then
+    show_message "Undefined project!"
+  else
+    local project='project_'$(echo $conf | sed 's/^project\_\([^\_]*\).*$/\1/')'_'
+    local title="$project"
+    title+="info_title"
+    show_message 'Updating "'${!title}'" project database...'
+    project+="remote_"
+    local host="$project"
+    host+="host"
+    local user="$project"
+    user+="user"
+    local password="$project"
+    password+="password"
+    local database="$project"
+    database+="database"
+    mysqldump -h ${!host} -u ${!user} -p${!password} ${!database} > db.sql
+    emr ${!database} db.sql
+    rm db.sql
+  fi
+}
+
+alias epua=execute_project_update_all
+
 # Others
 
 alias esf='cd /hdd/www/'
