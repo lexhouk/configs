@@ -2,6 +2,7 @@ Some configuration for linux terminal and programs.
 
 Format for "projects.yml" file:
 
+```
 <project_name_>:
   info:
     title: <project_title>
@@ -13,3 +14,4 @@ Format for "projects.yml" file:
     user: <remote_database_username>
     password: <remote_database_password>
     database: <remote_database_name>
+```
