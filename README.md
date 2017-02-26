@@ -3,7 +3,7 @@ Some configuration for linux terminal and programs.
 Format for "projects.yml" file:
 
 ```
-<project_name_>:
+<project_name>:
   info:
     title: <project_title>
   local:
