@@ -310,16 +310,19 @@ execute_project_update_all() {
     local title="$project"
     title+="info_title"
     show_message 'Updating "'${!title}'" project database...'
-    project+="remote_"
-    local host="$project"
+    local remote="$project"
+    remote+="remote_"
+    local host="$remote"
     host+="host"
-    local user="$project"
+    local user="$remote"
     user+="user"
-    local password="$project"
+    local password="$remote"
     password+="password"
-    local database="$project"
+    local database="$remote"
     database+="database"
     mysqldump -h ${!host} -u ${!user} -p${!password} ${!database} > db.sql
+    local database="$project"
+    database+="local_database"
     emr ${!database} db.sql
     rm db.sql
   fi
