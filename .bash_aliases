@@ -240,7 +240,7 @@ drupal_db() {
 alias ecd=drupal_db
 
 execute_cms_update() {
-  if [ -e "$2" ]; then
+  if ! [ -z "$2" ]; then
     rm -rf $2
     wget $1$2$3
     tar zxfv $2$3
