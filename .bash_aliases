@@ -2,7 +2,9 @@
 
 show_message() {
   now=$(date +"%T.%N")
-  echo "$now > $1"
+  set_color='\e[0;33m'
+  del_color='\e[0m'
+  echo -e "${set_color}$now${del_color} > $1"
 }
 
 # GIT
@@ -13,10 +15,16 @@ alias gb='git branch '
 alias gba='git branch -a '
 alias gc='git commit -m '
 alias gd='git diff '
-alias go='git checkout '
-alias gom='git checkout master '
-alias god='git checkout dev '
-alias gol='git checkout live '
+
+execute_git_branch() {
+  show_message "Git: switching to \"$1\" branch..."
+  git checkout $1
+}
+
+alias egbs=execute_git_branch
+alias egbm='execute_git_branch master'
+alias egbd='execute_git_branch dev'
+
 alias gk='gitk --all&'
 alias gx='gitx --all'
 alias gf='git fetch '
@@ -54,32 +62,26 @@ alias egcp='git cherry-pick '
 alias egcpc='git cherry-pick --continue '
 alias egfm='git config core.fileMode '
 alias egfmd='git config core.fileMode false '
-
-git_create_branch_from_dev() {
-  git checkout -b $1 dev
-}
-
-alias egbd=git_create_branch_from_dev
-
 alias egf='git fetch '
 alias egm='git merge '
-alias egh='git push '
-alias egho='git push origin '
-alias eghm='git push origin master '
-alias eghd='git push origin dev '
-alias eghl='git push origin live'
 
-alias egl='git pull '
-alias eglo='git pull origin '
-
-git_pull() {
-  show_message "Git: pulling from master branch..."
-  git pull origin master
+execute_git_push() {
+  show_message "Git: pushing to \"$1\" branch..."
+  git push origin $1
 }
 
-alias eglm=git_pull
-alias egld='git pull origin dev '
-alias egll='git pull origin live'
+alias egh=execute_git_push
+alias eghm='execute_git_push master'
+alias eghd='execute_git_push dev'
+
+execute_git_pull() {
+  show_message "Git: pulling from \"$1\" branch..."
+  git pull origin $1
+}
+
+alias egl=execute_git_pull
+alias eglm='execute_git_pull master'
+alias egld='execute_git_pull dev'
 
 alias egl-f2f-ts='git pull origin master '
 
