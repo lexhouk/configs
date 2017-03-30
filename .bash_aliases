@@ -62,7 +62,14 @@ alias egcp='git cherry-pick '
 alias egcpc='git cherry-pick --continue '
 alias egfm='git config core.fileMode '
 alias egfmd='git config core.fileMode false '
-alias egf='git fetch '
+
+execute_git_fetch() {
+  show_message "Git: fetching..."
+  git fetch
+}
+
+alias egf=execute_git_fetch
+
 alias egm='git merge '
 
 execute_git_push() {
