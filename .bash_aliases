@@ -25,6 +25,13 @@ alias egbs=execute_git_branch
 alias egbm='execute_git_branch master'
 alias egbd='execute_git_branch dev'
 
+execute_git_changes() {
+  show_message "Git: canceling changes..."
+  git checkout $@
+}
+
+alias egch=execute_git_changes
+
 alias gk='gitk --all&'
 alias gx='gitx --all'
 alias gf='git fetch '
