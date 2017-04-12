@@ -1,9 +1,9 @@
 # Message
 
 show_message() {
-  now=$(date +"%T.%N")
-  set_color='\e[0;33m'
-  del_color='\e[0m'
+  local now=$(date +"%T.%N")
+  local set_color='\e[0;33m'
+  local del_color='\e[0m'
   echo -e "${set_color}$now${del_color} > $1"
 }
 
