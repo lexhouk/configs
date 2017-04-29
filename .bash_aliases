@@ -26,8 +26,13 @@ alias egbm='execute_git_branch master'
 alias egbd='execute_git_branch dev'
 
 execute_git_changes() {
-  show_message "Git: canceling changes..."
-  git checkout $@
+  if [ "$#" == 0 ]; then
+    show_message "Git: canceling all changes..."
+    git checkout .
+  else
+    show_message "Git: canceling some changes..."
+    git checkout $@
+  fi
 }
 
 alias egch=execute_git_changes
