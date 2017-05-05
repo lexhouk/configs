@@ -382,4 +382,11 @@ execute_system_enviroment() {
 
 alias ese=execute_system_enviroment
 
+execute_system_space() {
+  show_message "System: getting free space on the disks..."
+  df -h --output=source,target,avail | grep /dev/sd
+}
+
+alias ess=execute_system_space
+
 alias q='exit'
