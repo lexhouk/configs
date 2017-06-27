@@ -2,9 +2,18 @@
 
 show_message() {
   local now=$(date +"%T.%N")
-  local set_color='\e[0;33m'
+  local set_time_color='\e[0;33m'
+  local set_app_color='\e[96m'
   local del_color='\e[0m'
-  echo -e "${set_color}$now${del_color} > $1"
+  local msg="${set_time_color}$now${del_color} "
+
+  if [ "$#" == 1 ]; then
+    msg+="> $1"
+  else
+    msg+="${set_app_color}< $1 >${del_color} $2"
+  fi
+
+  echo -e $msg
 }
 
 # GIT
@@ -17,7 +26,7 @@ alias gc='git commit -m '
 alias gd='git diff '
 
 execute_git_branch() {
-  show_message "Git: switching to \"$1\" branch..."
+  show_message "Git" "switching to \"$1\" branch..."
   git checkout $1
 }
 
@@ -27,10 +36,10 @@ alias egbd='execute_git_branch dev'
 
 execute_git_changes() {
   if [ "$#" == 0 ]; then
-    show_message "Git: canceling all changes..."
+    show_message "Git" "Canceling all changes..."
     git checkout .
   else
-    show_message "Git: canceling some changes..."
+    show_message "Git" "Canceling some changes..."
     git checkout $@
   fi
 }
@@ -55,7 +64,7 @@ alias egra='git remote add '
 alias egrao='git remote add origin '
 
 execute_git_remote_change() {
-  show_message "Git: change origin URL to remote repository..."
+  show_message "Git" "Change origin URL to remote repository..."
   git remote set-url origin $1
 }
 
@@ -76,7 +85,7 @@ alias egfm='git config core.fileMode '
 alias egfmd='git config core.fileMode false '
 
 execute_git_fetch() {
-  show_message "Git: fetching..."
+  show_message "Git" "fetching..."
   git fetch
 }
 
@@ -85,7 +94,7 @@ alias egf=execute_git_fetch
 alias egm='git merge '
 
 execute_git_push() {
-  show_message "Git: pushing to \"$1\" branch..."
+  show_message "Git" "Pushing to \"$1\" branch..."
   git push origin $1
 }
 
@@ -94,7 +103,7 @@ alias eghm='execute_git_push master'
 alias eghd='execute_git_push dev'
 
 execute_git_pull() {
-  show_message "Git: pulling from \"$1\" branch..."
+  show_message "Git" "Pulling from \"$1\" branch..."
   git pull origin $1
 }
 
@@ -131,20 +140,20 @@ alias emi=mysql_import
 
 mysql_export() {
   mysqldump -u root -proot $1 > $2.sql
-  show_message "Created dump for database called $1 in file $2.sql"
+  show_message "MySQL" "Created dump for database called $1 in file $2.sql"
 }
 
 alias eme=mysql_export
 
 mysql_create_db() {
   mysql -u root -proot -e "create database $1"
-  show_message "Created database called \"$1\"."
+  show_message "MySQL" "Created database called \"$1\"."
 }
 
 alias emc=mysql_create_db
 
 mysql_drop_db() {
-  show_message "Deleting \"$1\" database..."
+  show_message "MySQL" "Deleting \"$1\" database..."
   mysql -u root -proot -e "drop database $1"
 }
 
@@ -167,7 +176,7 @@ mysql_create_user() {
   mysql -u root -proot -e "CREATE USER '$1'@'localhost' IDENTIFIED BY '$2'"
   mysql -u root -proot -e "GRANT ALL PRIVILEGES ON $1.* TO '$1'@'localhost'"
   mysql -u root -proot -e "FLUSH PRIVILEGES"
-  show_message "Created user \"$1\" for \"$1\" database."
+  show_message "MySQL" "Created user \"$1\" for \"$1\" database."
 }
 
 alias emu=mysql_create_user
@@ -176,7 +185,7 @@ mysql_create_user_special() {
   mysql -u root -proot -e "CREATE USER '$2'@'localhost' IDENTIFIED BY '$3'"
   mysql -u root -proot -e "GRANT ALL PRIVILEGES ON $1.* TO '$2'@'localhost'"
   mysql -u root -proot -e "FLUSH PRIVILEGES"
-  show_message "Created user \"$2\" for \"$1\" database."
+  show_message "MySQL" "Created user \"$2\" for \"$1\" database."
 }
 
 alias emus=mysql_create_user_special
@@ -184,7 +193,7 @@ alias emus=mysql_create_user_special
 # Drush
 
 drush_clear_message() {
-  show_message "Clearing all caches..."
+  show_message "Drush" "Clearing all caches..."
 }
 
 drush_clear() {
@@ -200,14 +209,14 @@ drush_clear() {
 alias edc=drush_clear
 
 root_drush_clear() {
-  show_message "Clearing all caches..."
+  drush_clear_message
   sudo drush cc all
 }
 
 alias erdc=root_drush_clear
 
 drush_user_login() {
-  show_message "Display a one time login link for the given user account (defaults to uid 1)."
+  show_message "Drush" "Display a one time login link for the given user account (defaults to uid 1)."
   drush uli
 }
 
@@ -234,7 +243,7 @@ alias edd=drush_dump
 alias eds='drush status '
 
 drush_status_database() {
-  show_message "Provides a birds-eye view of the current Drupal installation, if any."
+  show_message "Drush" "Provides a birds-eye view of the current Drupal installation, if any."
   drush status --fields=db-name
 }
 
@@ -282,15 +291,15 @@ alias edrs='sudo service docker start '
 alias edrp='sudo service docker stop '
 
 docker_clear() {
-  show_message "Docker: stoping containers..."
+  show_message "Docker" "Stoping containers..."
   docker stop $(docker ps -q)
-  show_message "Docker: removing containers..."
+  show_message "Docker" "Removing containers..."
   docker rm -f $(docker ps -a -q)
-  show_message "Docker: removing images..."
+  show_message "Docker" "Removing images..."
   docker rmi -f $(docker images -a -q)
-  show_message "Docker: removing volumes..."
+  show_message "Docker" "Removing volumes..."
   docker volume rm $(docker volume ls -q)
-  show_message "Docker: results..."
+  show_message "Docker" "Results..."
   docker ps -a
   docker images -a
   docker volume ls
@@ -383,7 +392,7 @@ execute_system_enviroment() {
 alias ese=execute_system_enviroment
 
 execute_system_space() {
-  show_message "System: getting free space on the disks..."
+  show_message "System" "Getting free space on the disks..."
   df -h --output=source,target,avail | grep /dev/sd
 }
 
