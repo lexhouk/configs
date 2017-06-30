@@ -16,6 +16,45 @@ show_message() {
   echo -e $msg
 }
 
+# Parse projects info file.
+
+parse_yaml() {
+  local file_name="$HOME"'/projects.yml'
+  local prefix='project_'
+  local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
+  sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
+      -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p"  $file_name |
+  awk -F$fs '{
+    indent = length($1)/2;
+    vname[indent] = $2;
+    for (i in vname) {if (i > indent) {delete vname[i]}}
+    if (length($3) > 0) {
+      vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
+      printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3);
+    }
+  }'
+}
+
+# Get project settings prefix.
+
+get_project() {
+  eval $(parse_yaml)
+  local conf=$(( set -o posix ; set ) | cat | grep '^project\_[a-z]*\_local\_directory\='$(pwd)'$')
+
+  if [ -z $conf ]; then
+    echo ''
+  else
+    echo 'project_'$(echo $conf | sed 's/^project\_\([^\_]*\).*$/\1/')'_'
+  fi
+}
+
+# Getting variable value.
+
+get() {
+  eval $(parse_yaml)
+  echo ${!1}
+}
+
 # GIT
 
 alias gs='git status '
@@ -109,7 +148,23 @@ execute_git_pull() {
 
 alias egl=execute_git_pull
 alias eglm='execute_git_pull master'
-alias egld='execute_git_pull dev'
+
+execute_git_pull_dev() {
+  local project=$(get_project)
+  local branch="dev"
+
+  if ! [ -z $project ]; then
+    local special_branch="${project}dev_branch"
+
+    if ! [ -z $special_branch ]; then
+      branch=$(get $special_branch)
+    fi
+  fi
+
+  execute_git_pull $branch
+}
+
+alias egld=execute_git_pull_dev
 
 alias egl-f2f-ts='git pull origin master '
 
@@ -312,48 +367,21 @@ alias edra='sudo chmod +x $(find . -name "*.sh") '
 
 # Projects data
 
-parse_yaml() {
-  local file_name="$HOME"'/projects.yml'
-  local prefix='project_'
-  local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
-  sed -ne "s|^\($s\)\($w\)$s:$s\"\(.*\)\"$s\$|\1$fs\2$fs\3|p" \
-      -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p"  $file_name |
-  awk -F$fs '{
-    indent = length($1)/2;
-    vname[indent] = $2;
-    for (i in vname) {if (i > indent) {delete vname[i]}}
-    if (length($3) > 0) {
-      vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
-      printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3);
-    }
-  }'
-}
-
 execute_project_update_all() {
-  eval $(parse_yaml)
-  local conf=$(( set -o posix ; set ) | cat | grep '^project\_[a-z]*\_local\_directory\='$(pwd)'$')
+  local project=$(get_project)
 
-  if [ -z $conf ]; then
+  if [ -z $project ]; then
     show_message "Undefined project!"
   else
-    local project='project_'$(echo $conf | sed 's/^project\_\([^\_]*\).*$/\1/')'_'
-    local title="$project"
-    title+="info_title"
-    show_message 'Updating "'${!title}'" project database...'
-    local remote="$project"
-    remote+="remote_"
-    local host="$remote"
-    host+="host"
-    local user="$remote"
-    user+="user"
-    local password="$remote"
-    password+="password"
-    local database="$remote"
-    database+="database"
-    mysqldump -h ${!host} -u ${!user} -p${!password} ${!database} > db.sql
-    local database="$project"
-    database+="local_database"
-    emr ${!database} db.sql
+    local title=$(get "${project}info_title")
+    show_message 'Updating "'${title}'" project database...'
+    local remote="${project}remote_"
+    local host="${remote}host"
+    local user="${remote}user"
+    local password="${remote}password"
+    local database="${remote}database"
+    mysqldump -h $(get $host) -u $(get user) -p$(get $password) $(get $database) > db.sql
+    emr $(get "${project}local_database") db.sql
     rm db.sql
   fi
 }

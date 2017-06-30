@@ -14,4 +14,6 @@ Format for "projects.yml" file:
     user: <remote_database_username>
     password: <remote_database_password>
     database: <remote_database_name>
+  <environment>:
+    branch: <git_branch_name>
 ```
