@@ -71,7 +71,23 @@ execute_git_branch() {
 
 alias egbs=execute_git_branch
 alias egbm='execute_git_branch master'
-alias egbd='execute_git_branch dev'
+
+execute_git_branch_dev() {
+  local project=$(get_project)
+  local branch="dev"
+
+  if ! [ -z $project ]; then
+    local special_branch="${project}dev_branch"
+
+    if ! [ -z $special_branch ]; then
+      branch=$(get $special_branch)
+    fi
+  fi
+
+  execute_git_branch $branch
+}
+
+alias egbd=execute_git_branch_dev
 
 execute_git_changes() {
   if [ "$#" == 0 ]; then
@@ -139,7 +155,23 @@ execute_git_push() {
 
 alias egh=execute_git_push
 alias eghm='execute_git_push master'
-alias eghd='execute_git_push dev'
+
+execute_git_push_dev() {
+  local project=$(get_project)
+  local branch="dev"
+
+  if ! [ -z $project ]; then
+    local special_branch="${project}dev_branch"
+
+    if ! [ -z $special_branch ]; then
+      branch=$(get $special_branch)
+    fi
+  fi
+
+  execute_git_push $branch
+}
+
+alias eghd=execute_git_push_dev
 
 execute_git_pull() {
   show_message "Git" "Pulling from \"$1\" branch..."
