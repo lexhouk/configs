@@ -16,4 +16,7 @@ Format for "projects.yml" file:
     database: <remote_database_name>
   <environment>:
     branch: <git_branch_name>
+    ssh:
+      host: <ip_or_domain_name_for_remote_ssh_host>
+      user: <remote_ssh_username>
 ```

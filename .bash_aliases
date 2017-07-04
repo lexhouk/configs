@@ -55,6 +55,34 @@ get() {
   echo ${!1}
 }
 
+# Connect to Remote host by SSH
+
+execute_remote_dev() {
+  local project=$(get_project)
+
+  if ! [ -z $project ]; then
+    local host=$(get "${project}dev_ssh_host")
+
+    if ! [ -z $host ]; then
+      local user=$(get "${project}dev_ssh_user")
+
+      if ! [ -z $user ]; then
+        local title=$(get "${project}info_title")
+        show_message "SSH" "Connecting to development host of \"${title}\" project..."
+        ssh ${user}@${host}
+      else
+        show_message "SSH" "User not defined!"
+      fi
+    else
+      show_message "SSH" "Host not defined!"
+    fi
+  else
+    show_message "Undefined project!"
+  fi
+}
+
+alias erd=execute_remote_dev
+
 # GIT
 
 alias gs='git status '
