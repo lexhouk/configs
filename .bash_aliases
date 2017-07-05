@@ -55,7 +55,7 @@ get() {
   echo ${!1}
 }
 
-# Connect to Remote host by SSH
+# SSH
 
 execute_remote_dev() {
   local project=$(get_project)
@@ -89,6 +89,32 @@ execute_remote_dev() {
 }
 
 alias erd=execute_remote_dev
+
+execute_remote_dev_transfer() {
+  local project=$(get_project)
+
+  if ! [ -z $project ]; then
+    local host=$(get "${project}dev_ssh_host")
+
+    if ! [ -z $host ]; then
+      local user=$(get "${project}dev_ssh_user")
+
+      if ! [ -z $user ]; then
+        local title=$(get "${project}info_title")
+        show_message "SSH" "Downloading file(s) from development host of \"${title}\" project..."
+        scp ${user}@${host}:$1 .
+      else
+        show_message "SSH" "User not defined!"
+      fi
+    else
+      show_message "SSH" "Host not defined!"
+    fi
+  else
+    show_message "Undefined project!"
+  fi
+}
+
+alias erdt="execute_remote_dev_transfer $1"
 
 # GIT
 
