@@ -69,7 +69,14 @@ execute_remote_dev() {
       if ! [ -z $user ]; then
         local title=$(get "${project}info_title")
         show_message "SSH" "Connecting to development host of \"${title}\" project..."
-        ssh ${user}@${host}
+
+        local directory=$(get "${project}dev_ssh_directory")
+
+        if ! [ -z $directory ]; then
+          ssh ${user}@${host} -t "cd ${directory} ; bash"
+        else
+          ssh ${user}@${host}
+        fi
       else
         show_message "SSH" "User not defined!"
       fi

@@ -19,4 +19,5 @@ Format for "projects.yml" file:
     ssh:
       host: <ip_or_domain_name_for_remote_ssh_host>
       user: <remote_ssh_username>
+      directory: <path>
 ```
