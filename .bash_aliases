@@ -138,10 +138,10 @@ execute_git_branch_dev() {
   local branch="dev"
 
   if ! [ -z $project ]; then
-    local special_branch="${project}dev_branch"
+    local special_branch=$(get "${project}dev_branch")
 
     if ! [ -z $special_branch ]; then
-      branch=$(get $special_branch)
+      branch=$special_branch
     fi
   fi
 
@@ -222,10 +222,10 @@ execute_git_push_dev() {
   local branch="dev"
 
   if ! [ -z $project ]; then
-    local special_branch="${project}dev_branch"
+    local special_branch=$(get "${project}dev_branch")
 
     if ! [ -z $special_branch ]; then
-      branch=$(get $special_branch)
+      branch=$special_branch
     fi
   fi
 
@@ -247,10 +247,10 @@ execute_git_pull_dev() {
   local branch="dev"
 
   if ! [ -z $project ]; then
-    local special_branch="${project}dev_branch"
+    local special_branch=$(get "${project}dev_branch")
 
     if ! [ -z $special_branch ]; then
-      branch=$(get $special_branch)
+      branch=$special_branch
     fi
   fi
 
