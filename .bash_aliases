@@ -10,7 +10,14 @@ show_message() {
   if [ "$#" == 1 ]; then
     msg+="> $1"
   else
-    msg+="${set_app_color}< $1 >${del_color} $2"
+    local text="$2"
+    local reg='^[^\s]+ing(|\s[^\.]+)$'
+
+    msg+="${set_app_color}< $1 >${del_color} ${text}"
+
+    if [[ $text =~ $reg ]]; then
+      msg+="..."
+    fi
   fi
 
   echo -e $msg
@@ -68,7 +75,7 @@ execute_remote_dev() {
 
       if ! [ -z $user ]; then
         local title=$(get "${project}info_title")
-        show_message "SSH" "Connecting to development host of \"${title}\" project..."
+        show_message "SSH" "Connecting to development host of \"${title}\" project"
 
         local directory=$(get "${project}dev_ssh_directory")
 
@@ -101,7 +108,7 @@ execute_remote_dev_transfer() {
 
       if ! [ -z $user ]; then
         local title=$(get "${project}info_title")
-        show_message "SSH" "Downloading file(s) from development host of \"${title}\" project..."
+        show_message "SSH" "Downloading file(s) from development host of \"${title}\" project"
         scp ${user}@${host}:$1 .
       else
         show_message "SSH" "User not defined!"
@@ -126,7 +133,7 @@ alias gc='git commit -m '
 alias gd='git diff '
 
 execute_git_branch() {
-  show_message "Git" "switching to \"$1\" branch..."
+  show_message "Git" "switching to \"$1\" branch"
   git checkout $1
 }
 
@@ -152,10 +159,10 @@ alias egbd=execute_git_branch_dev
 
 execute_git_changes() {
   if [ "$#" == 0 ]; then
-    show_message "Git" "Canceling all changes..."
+    show_message "Git" "Canceling all changes"
     git checkout .
   else
-    show_message "Git" "Canceling some changes..."
+    show_message "Git" "Canceling some changes"
     git checkout $@
   fi
 }
@@ -180,7 +187,7 @@ alias egra='git remote add '
 alias egrao='git remote add origin '
 
 execute_git_remote_change() {
-  show_message "Git" "Change origin URL to remote repository..."
+  show_message "Git" "Change origin URL to remote repository"
   git remote set-url origin $1
 }
 
@@ -201,7 +208,7 @@ alias egfm='git config core.fileMode '
 alias egfmd='git config core.fileMode false '
 
 execute_git_fetch() {
-  show_message "Git" "fetching..."
+  show_message "Git" "fetching"
   git fetch
 }
 
@@ -210,7 +217,7 @@ alias egf=execute_git_fetch
 alias egm='git merge '
 
 execute_git_push() {
-  show_message "Git" "Pushing to \"$1\" branch..."
+  show_message "Git" "Pushing to \"$1\" branch"
   git push origin $1
 }
 
@@ -235,7 +242,7 @@ execute_git_push_dev() {
 alias eghd=execute_git_push_dev
 
 execute_git_pull() {
-  show_message "Git" "Pulling from \"$1\" branch..."
+  show_message "Git" "Pulling from \"$1\" branch"
   git pull origin $1
 }
 
@@ -301,7 +308,7 @@ mysql_create_db() {
 alias emc=mysql_create_db
 
 mysql_drop_db() {
-  show_message "MySQL" "Deleting \"$1\" database..."
+  show_message "MySQL" "Deleting \"$1\" database"
   mysql -u root -proot -e "drop database $1"
 }
 
@@ -312,7 +319,7 @@ execute_mysql_reload() {
   emc $1
 
   if [ -e "$2" ]; then
-    show_message "Loading \"$1\" database from \"$2\" file..."
+    show_message "Loading \"$1\" database from \"$2\" file"
     pv $2 | mysql -u root -proot $1
     show_message "Recreated \"$1\" database and load data from \"$2\" dump file."
   fi
@@ -341,7 +348,7 @@ alias emus=mysql_create_user_special
 # Drush
 
 drush_clear_message() {
-  show_message "Drush" "Clearing all caches..."
+  show_message "Drush" "Clearing all caches"
 }
 
 drush_clear() {
@@ -439,15 +446,15 @@ alias edrs='sudo service docker start '
 alias edrp='sudo service docker stop '
 
 docker_clear() {
-  show_message "Docker" "Stoping containers..."
+  show_message "Docker" "Stoping containers"
   docker stop $(docker ps -q)
-  show_message "Docker" "Removing containers..."
+  show_message "Docker" "Removing containers"
   docker rm -f $(docker ps -a -q)
-  show_message "Docker" "Removing images..."
+  show_message "Docker" "Removing images"
   docker rmi -f $(docker images -a -q)
-  show_message "Docker" "Removing volumes..."
+  show_message "Docker" "Removing volumes"
   docker volume rm $(docker volume ls -q)
-  show_message "Docker" "Results..."
+  show_message "Docker" "Results"
   docker ps -a
   docker images -a
   docker volume ls
@@ -458,6 +465,20 @@ alias edrl='docker ps '
 alias edre='docker exec -it '
 alias edra='sudo chmod +x $(find . -name "*.sh") '
 
+execute_docker_up() {
+  show_message "Docker" "Upping"
+  docker-compose up -d
+}
+
+alias edru=execute_docker_up
+
+execute_docker_down() {
+  show_message "Docker" "Downing"
+  docker-compose down
+}
+
+alias edrd=execute_docker_down
+
 # Projects data
 
 execute_project_update_all() {
@@ -467,7 +488,7 @@ execute_project_update_all() {
     show_message "Undefined project!"
   else
     local title=$(get "${project}info_title")
-    show_message 'Updating "'${title}'" project database...'
+    show_message 'Updating "'${title}'" project database'
     local remote="${project}remote_"
     local host="${remote}host"
     local user="${remote}user"
@@ -498,12 +519,12 @@ alias esh='sudo gedit /etc/hosts'
 execute_system_enviroment() {
   STATUS=$(sudo service docker status)
   if [ "$STATUS" == "docker stop/waiting" ]; then
-    show_message "Changing enviroment from local to Docker..."
+    show_message "Changing enviroment from local to Docker"
     eap
     emp
     edrs
   else
-    show_message "Changing enviroment from Docker to local..."
+    show_message "Changing enviroment from Docker to local"
     edrp
     eas
     ems
@@ -513,7 +534,7 @@ execute_system_enviroment() {
 alias ese=execute_system_enviroment
 
 execute_system_space() {
-  show_message "System" "Getting free space on the disks..."
+  show_message "System" "Getting free space on the disks"
   df -h --output=source,target,avail | grep /dev/sd
 }
 
