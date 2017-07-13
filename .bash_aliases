@@ -345,6 +345,45 @@ mysql_create_user_special() {
 
 alias emus=mysql_create_user_special
 
+# Docker
+
+alias edrs='sudo service docker start '
+alias edrp='sudo service docker stop '
+
+docker_clear() {
+  show_message "Docker" "Stoping containers"
+  docker stop $(docker ps -q)
+  show_message "Docker" "Removing containers"
+  docker rm -f $(docker ps -a -q)
+  show_message "Docker" "Removing images"
+  docker rmi -f $(docker images -a -q)
+  show_message "Docker" "Removing volumes"
+  docker volume rm $(docker volume ls -q)
+  show_message "Docker" "Results"
+  docker ps -a
+  docker images -a
+  docker volume ls
+}
+
+alias edrc=docker_clear
+alias edrl='docker ps '
+alias edre='docker exec -it '
+alias edra='sudo chmod +x $(find . -name "*.sh") '
+
+execute_docker_up() {
+  show_message "Docker" "Upping"
+  docker-compose up -d
+}
+
+alias edru=execute_docker_up
+
+execute_docker_down() {
+  show_message "Docker" "Downing"
+  docker-compose down
+}
+
+alias edrd=execute_docker_down
+
 # Drush
 
 drush_clear_message() {
@@ -354,10 +393,28 @@ drush_clear_message() {
 drush_clear() {
   drush_clear_message
 
-  if [ -e core ]; then
-    drush cr
-  else
-    drush cc all
+  local project=$(get_project)
+  local docker=0
+
+  if ! [ -z $project ]; then
+    local container=$(get "${project}docker")
+
+    if ! [ -z $container ]; then
+      edre $container drush cr
+      docker=1
+    fi
+  fi
+
+  if [ -z $docker ]; then
+    if [ -e index.php ]; then
+      if [ -e core ]; then
+        drush cr
+      else
+        drush cc all
+      fi
+    else
+      show_message "Site not found!"
+    fi
   fi
 }
 
@@ -439,45 +496,6 @@ execute_cms_update() {
 }
 
 alias ecu=execute_cms_update
-
-# Docker
-
-alias edrs='sudo service docker start '
-alias edrp='sudo service docker stop '
-
-docker_clear() {
-  show_message "Docker" "Stoping containers"
-  docker stop $(docker ps -q)
-  show_message "Docker" "Removing containers"
-  docker rm -f $(docker ps -a -q)
-  show_message "Docker" "Removing images"
-  docker rmi -f $(docker images -a -q)
-  show_message "Docker" "Removing volumes"
-  docker volume rm $(docker volume ls -q)
-  show_message "Docker" "Results"
-  docker ps -a
-  docker images -a
-  docker volume ls
-}
-
-alias edrc=docker_clear
-alias edrl='docker ps '
-alias edre='docker exec -it '
-alias edra='sudo chmod +x $(find . -name "*.sh") '
-
-execute_docker_up() {
-  show_message "Docker" "Upping"
-  docker-compose up -d
-}
-
-alias edru=execute_docker_up
-
-execute_docker_down() {
-  show_message "Docker" "Downing"
-  docker-compose down
-}
-
-alias edrd=execute_docker_down
 
 # Projects data
 
