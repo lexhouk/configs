@@ -405,7 +405,7 @@ drush_clear() {
     fi
   fi
 
-  if [ -z $docker ]; then
+  if [ $docker == 0 ]; then
     if [ -e index.php ]; then
       if [ -e core ]; then
         drush cr
