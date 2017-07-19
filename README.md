@@ -14,7 +14,7 @@ Format for "projects.yml" file:
     user: <remote_database_username>
     password: <remote_database_password>
     database: <remote_database_name>
-  <environment>:
+  [dev|live]:
     branch: <git_branch_name>
     ssh:
       host: <ip_or_domain_name_for_remote_ssh_host>

@@ -64,20 +64,21 @@ get() {
 
 # SSH
 
-execute_remote_dev() {
+execute_remote() {
   local project=$(get_project)
 
   if ! [ -z $project ]; then
-    local host=$(get "${project}dev_ssh_host")
+    local ssh="${project}$1_ssh_"
+    local host=$(get "${ssh}host")
 
     if ! [ -z $host ]; then
-      local user=$(get "${project}dev_ssh_user")
+      local user=$(get "${ssh}user")
 
       if ! [ -z $user ]; then
         local title=$(get "${project}info_title")
-        show_message "SSH" "Connecting to development host of \"${title}\" project"
+        show_message "SSH" "Connecting to \"$1\" host of \"${title}\" project"
 
-        local directory=$(get "${project}dev_ssh_directory")
+        local directory=$(get "${ssh}directory")
 
         if ! [ -z $directory ]; then
           ssh ${user}@${host} -t "cd ${directory} ; bash"
@@ -95,7 +96,8 @@ execute_remote_dev() {
   fi
 }
 
-alias erd=execute_remote_dev
+alias erd="execute_remote dev"
+alias erl="execute_remote live"
 
 execute_remote_dev_transfer() {
   local project=$(get_project)
