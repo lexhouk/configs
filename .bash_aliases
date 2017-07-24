@@ -249,24 +249,26 @@ execute_git_pull() {
 }
 
 alias egl=execute_git_pull
-alias eglm='execute_git_pull master'
 
-execute_git_pull_dev() {
+execute_git_pull_enviroment() {
   local project=$(get_project)
-  local branch="dev"
+  local branch="$1"
 
   if ! [ -z $project ]; then
-    local special_branch=$(get "${project}dev_branch")
+    local special_branch=$(get "${project}$2_branch")
 
     if ! [ -z $special_branch ]; then
       branch=$special_branch
     fi
   fi
 
-  execute_git_pull $branch
+  echo "$branch"
+
+#  execute_git_pull $branch
 }
 
-alias egld=execute_git_pull_dev
+alias egld='execute_git_pull_enviroment dev dev'
+alias eglm='execute_git_pull_enviroment master live'
 
 alias egl-f2f-ts='git pull origin master '
 
