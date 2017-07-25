@@ -262,9 +262,7 @@ execute_git_pull_enviroment() {
     fi
   fi
 
-  echo "$branch"
-
-#  execute_git_pull $branch
+  execute_git_pull $branch
 }
 
 alias egld='execute_git_pull_enviroment dev dev'
