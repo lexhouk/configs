@@ -140,14 +140,13 @@ execute_git_branch() {
 }
 
 alias egbs=execute_git_branch
-alias egbm='execute_git_branch master'
 
-execute_git_branch_dev() {
+execute_git_branch_enviroment() {
   local project=$(get_project)
-  local branch="dev"
+  local branch="$1"
 
   if ! [ -z $project ]; then
-    local special_branch=$(get "${project}dev_branch")
+    local special_branch=$(get "${project}$2_branch")
 
     if ! [ -z $special_branch ]; then
       branch=$special_branch
@@ -157,7 +156,8 @@ execute_git_branch_dev() {
   execute_git_branch $branch
 }
 
-alias egbd=execute_git_branch_dev
+alias egbd='execute_git_branch_enviroment dev dev'
+alias egbm='execute_git_branch_enviroment master live'
 
 execute_git_changes() {
   if [ "$#" == 0 ]; then
