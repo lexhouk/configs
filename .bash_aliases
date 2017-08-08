@@ -210,7 +210,7 @@ alias egfm='git config core.fileMode '
 alias egfmd='git config core.fileMode false '
 
 execute_git_fetch() {
-  show_message "Git" "fetching"
+  show_message "Git" "Fetching"
   git fetch
 }
 
@@ -523,6 +523,33 @@ execute_project_update_all() {
 alias epua=execute_project_update_all
 
 # Others
+
+execute_system_deploy() {
+  show_message "System" "Deploying"
+
+  local project=$(get_project)
+
+  if [ -z $project ]; then
+    show_message "Undefined project!"
+    return
+  fi
+
+  project+="local_deploy_"
+  local steps=$(get "${project}amount")
+
+  if [ -z $steps ]; then
+    return
+  fi
+
+  local step=1
+
+  while [ $step -le $steps ]; do
+    echo $(get "${project}steps_${step}_type")
+    ((step++))
+  done
+}
+
+alias esd=execute_system_deploy
 
 alias esf='cd /hdd/www/'
 alias esp='sudo chown -R www-data:www-data sites/default '
