@@ -386,6 +386,21 @@ execute_docker_down() {
 
 alias edrd=execute_docker_down
 
+execute_docker() {
+  local project=$(get_project)
+
+  if ! [ -z $project ]; then
+    local container=$(get "${project}docker")
+
+    if ! [ -z $container ]; then
+      edre $container $@
+      return
+    fi
+  fi
+
+  $@
+}
+
 # Drush
 
 drush_clear_message() {
@@ -448,11 +463,12 @@ drush_uli_uid_no_browser() {
 
 alias edusn=drush_uli_uid_no_browser
 
-drush_dump() {
-  drush sql-dump --result-file=$1.sql
+execute_drush_dump() {
+  show_message "Drush" "Creating dump of database"
+  execute_docker drush sql-dump --result-file=$1.sql
 }
 
-alias edd=drush_dump
+alias edd=execute_drush_dump
 
 alias eds='drush status '
 
