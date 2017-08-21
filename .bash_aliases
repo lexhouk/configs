@@ -283,6 +283,60 @@ git_submodule_add_module() {
 alias egsa=git_submodule_add_module
 alias egsu='git submodule update --init '
 
+# Docker
+
+alias edrs='sudo service docker start '
+alias edrp='sudo service docker stop '
+
+docker_clear() {
+  show_message "Docker" "Stoping containers"
+  docker stop $(docker ps -q)
+  show_message "Docker" "Removing containers"
+  docker rm -f $(docker ps -a -q)
+  show_message "Docker" "Removing images"
+  docker rmi -f $(docker images -a -q)
+  show_message "Docker" "Removing volumes"
+  docker volume rm $(docker volume ls -q)
+  show_message "Docker" "Results"
+  docker ps -a
+  docker images -a
+  docker volume ls
+}
+
+alias edrc=docker_clear
+alias edrl='docker ps '
+alias edre='docker exec -it '
+alias edra='sudo chmod +x $(find . -name "*.sh") '
+
+execute_docker_up() {
+  show_message "Docker" "Upping"
+  docker-compose up -d
+}
+
+alias edru=execute_docker_up
+
+execute_docker_down() {
+  show_message "Docker" "Downing"
+  docker-compose down
+}
+
+alias edrd=execute_docker_down
+
+execute_docker() {
+  local project=$(get_project)
+
+  if ! [ -z $project ]; then
+    local container=$(get "${project}docker")
+
+    if ! [ -z $container ]; then
+      edre $container $@
+      return
+    fi
+  fi
+
+  $@
+}
+
 # MySQL
 
 alias ems='sudo service mysql start '
@@ -290,6 +344,7 @@ alias emp='sudo service mysql stop '
 alias em='mysql -u root -proot '
 
 mysql_import() {
+  show_message "MySQL" "Importing database"
   pv $2 | mysql -u root -proot $1
 }
 
@@ -346,60 +401,6 @@ mysql_create_user_special() {
 }
 
 alias emus=mysql_create_user_special
-
-# Docker
-
-alias edrs='sudo service docker start '
-alias edrp='sudo service docker stop '
-
-docker_clear() {
-  show_message "Docker" "Stoping containers"
-  docker stop $(docker ps -q)
-  show_message "Docker" "Removing containers"
-  docker rm -f $(docker ps -a -q)
-  show_message "Docker" "Removing images"
-  docker rmi -f $(docker images -a -q)
-  show_message "Docker" "Removing volumes"
-  docker volume rm $(docker volume ls -q)
-  show_message "Docker" "Results"
-  docker ps -a
-  docker images -a
-  docker volume ls
-}
-
-alias edrc=docker_clear
-alias edrl='docker ps '
-alias edre='docker exec -it '
-alias edra='sudo chmod +x $(find . -name "*.sh") '
-
-execute_docker_up() {
-  show_message "Docker" "Upping"
-  docker-compose up -d
-}
-
-alias edru=execute_docker_up
-
-execute_docker_down() {
-  show_message "Docker" "Downing"
-  docker-compose down
-}
-
-alias edrd=execute_docker_down
-
-execute_docker() {
-  local project=$(get_project)
-
-  if ! [ -z $project ]; then
-    local container=$(get "${project}docker")
-
-    if ! [ -z $container ]; then
-      edre $container $@
-      return
-    fi
-  fi
-
-  $@
-}
 
 # Drush
 
