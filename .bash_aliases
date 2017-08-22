@@ -304,7 +304,14 @@ docker_clear() {
 }
 
 alias edrc=docker_clear
-alias edrl='docker ps '
+
+execute_docker_list() {
+  show_message "Docker" "Show running containers..."
+  docker ps
+}
+
+alias edrl=execute_docker_list
+
 alias edre='docker exec -it '
 alias edra='sudo chmod +x $(find . -name "*.sh") '
 
