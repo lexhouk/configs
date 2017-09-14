@@ -497,7 +497,19 @@ alias ead='sudo a2dissite '
 
 # Tar
 
-alias ete='tar zxfv '
+execute_tar_extract() {
+  show_message "Tar" "Extracting"
+  local file=$1
+  echo $file
+
+  if [[ $file =~ \.gz$ ]]; then
+    tar -zxfv ${file}
+  else
+    tar -xvf ${file}
+  fi
+}
+
+alias ete=execute_tar_extract
 
 # Drupal
 
@@ -508,6 +520,7 @@ drupal_db() {
 alias ecd=drupal_db
 
 execute_cms_update() {
+  show_message "CMS" "Updating module or theme"
   if ! [ -z "$2" ]; then
     rm -rf $2
     wget $1$2$3
@@ -515,9 +528,10 @@ execute_cms_update() {
     rm $2$3
   else
     rm -rf $1
-    mv ~/Downloads/"$1".tar.gz .
-    ete "$1".tar.gz
-    rm "$1".tar.gz
+    mv $(find ~/Downloads -name "${1}*") .
+    local file=$(ls ${1}*.tar*)
+    ete $file
+    rm $file
   fi
 }
 
