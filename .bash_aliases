@@ -500,10 +500,9 @@ alias ead='sudo a2dissite '
 execute_tar_extract() {
   show_message "Tar" "Extracting"
   local file=$1
-  echo $file
 
   if [[ $file =~ \.gz$ ]]; then
-    tar -zxfv ${file}
+    tar zxfv ${file}
   else
     tar -xvf ${file}
   fi
