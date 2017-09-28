@@ -411,18 +411,18 @@ alias emus=mysql_create_user_special
 
 # Drush
 
-exucute_drush() {
+execute_drush() {
   execute_docker drush $@
 }
 
-exucute_drush_execute() {
+execute_drush_execute() {
   show_message "Drush" "Executing any command"
-  exucute_drush $@
+  execute_drush $@
 }
 
-alias eds=exucute_drush_execute
+alias eds=execute_drush_execute
 
-exucute_drush_clear() {
+execute_drush_clear() {
   show_message "Drush" "Clearing all caches"
 
   local project=$(get_project)
@@ -450,33 +450,33 @@ exucute_drush_clear() {
   fi
 }
 
-alias edsc=exucute_drush_clear
+alias edsc=execute_drush_clear
 
-exucute_drush_clear_root() {
+execute_drush_clear_root() {
   show_message "Drush" "Clearing all caches by root"
   execute_docker sudo drush cc all
 }
 
-alias edscr=exucute_drush_clear_root
+alias edscr=execute_drush_clear_root
 
-exucute_drush_user_login() {
+execute_drush_user_login() {
   show_message "Drush" "Display a one time login link for the given user account (defaults to uid 1)."
-  exucute_drush uli
+  execute_drush uli
 }
 
-alias edsu=exucute_drush_user_login
+alias edsu=execute_drush_user_login
 
-exucute_drush_uli() {
-  exucute_drush uli --uid=$1
+execute_drush_uli() {
+  execute_drush uli --uid=$1
 }
 
-alias edsus=exucute_drush_uli
+alias edsus=execute_drush_uli
 
-exucute_drush_uli_uid_no_browser() {
-  exucute_drush uli --uid=$1 --no-browser
+execute_drush_uli_uid_no_browser() {
+  execute_drush uli --uid=$1 --no-browser
 }
 
-alias edsusn=exucute_drush_uli_uid_no_browser
+alias edsusn=execute_drush_uli_uid_no_browser
 
 execute_drush_dump() {
   show_message "Drush" "Creating dump of database"
@@ -487,17 +487,17 @@ alias edsd=execute_drush_dump
 
 execute_drush_status() {
   show_message "Drush" "Getting status"
-  exucute_drush status
+  execute_drush status
 }
 
 alias edss=execute_drush_status
 
-exucute_drush_status_database() {
+execute_drush_status_database() {
   show_message "Drush" "Getting database name"
-  exucute_drush status --fields=db-name
+  execute_drush status --fields=db-name
 }
 
-alias edssd=exucute_drush_status_database
+alias edssd=execute_drush_status_database
 
 # Apache
 
