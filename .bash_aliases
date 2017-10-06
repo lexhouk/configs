@@ -11,7 +11,7 @@ show_message() {
     msg+="> $1"
   else
     local text="$2"
-    local reg='^[^\s]+ing(|\s[^\.]+)$'
+    local reg='^\w+ing(|\s[^\.]+)$'
 
     msg+="${set_app_color}< $1 >${del_color} ${text}"
 
