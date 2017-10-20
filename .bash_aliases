@@ -125,6 +125,22 @@ execute_remote_dev_transfer() {
 
 alias erdt="execute_remote_dev_transfer $1"
 
+# Composer
+
+execute_composer_install() {
+  show_message "Composer" "Installing"
+  composer install
+}
+
+alias eci=execute_composer_install
+
+execute_composer_update() {
+  show_message "Composer" "Updating"
+  composer update
+}
+
+alias ecu=execute_composer_update
+
 # GIT
 
 alias gs='git status '
