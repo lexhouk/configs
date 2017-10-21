@@ -540,14 +540,15 @@ alias ete=execute_tar_extract
 
 # Drupal
 
-drupal_db() {
+execute_drupal_db() {
+  show_message "Drupal" "Getting database name"
   cat sites/default/settings.php | grep "'database'"
 }
 
-alias ecd=drupal_db
+alias edld=execute_drupal_db
 
-execute_cms_update() {
-  show_message "CMS" "Updating module or theme"
+execute_drupal_update() {
+  show_message "Drupal" "Updating module or theme"
   if ! [ -z "$2" ]; then
     rm -rf $2
     wget $1$2$3
@@ -562,7 +563,7 @@ execute_cms_update() {
   fi
 }
 
-alias ecu=execute_cms_update
+alias edlu=execute_drupal_update
 
 # Projects data
 
