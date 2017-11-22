@@ -46,7 +46,7 @@ parse_yaml() {
 
 get_project() {
   eval $(parse_yaml)
-  local conf=$(( set -o posix ; set ) | cat | grep '^project\_[a-z]*\_local\_directory\='$(pwd)'$')
+  local conf=$(( set -o posix ; set ) | cat | grep '^project\_[a-z0-9]*\_local\_directory\='$(pwd)'$')
 
   if [ -z $conf ]; then
     echo ''
