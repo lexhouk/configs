@@ -323,7 +323,7 @@ alias edrc=docker_clear
 
 execute_docker_list() {
   show_message "Docker" "Show running containers..."
-  docker ps
+  docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}"
 }
 
 alias edrl=execute_docker_list
