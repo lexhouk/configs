@@ -211,13 +211,31 @@ execute_git_remote_change() {
 
 alias egrc=execute_git_remote_change
 
-git_clone() {
-  git clone $1 $2
-  cd $2
+execute_git_clone() {
+  local remote=""
+  local directory=""
+
+  if [ -d .git ]; then
+    show_message "Git" "Recloning"
+
+    remote=$(git remote get-url origin)
+    directory=${PWD##*/}
+
+    cd ..
+    sudo rm -rf $directory
+  else
+    show_message "Git" "Cloning"
+
+    remote=$1
+    directory=$2
+  fi
+
+  git clone $remote $directory
+  cd $directory
   git config core.fileMode false
 }
 
-alias egc=git_clone
+alias egc=execute_git_clone
 
 alias egb='git checkout -b '
 alias egcp='git cherry-pick '
