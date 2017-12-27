@@ -151,7 +151,7 @@ alias gc='git commit -m '
 alias gd='git diff '
 
 execute_git_branch() {
-  show_message "Git" "switching to \"$1\" branch"
+  show_message "Git" "Switching to \"$1\" branch"
   git checkout $1
 }
 
@@ -214,12 +214,20 @@ alias egrc=execute_git_remote_change
 execute_git_clone() {
   local remote=""
   local directory=""
+  local branch=""
+  local user=""
+  local mail=""
+  local email=""
 
   if [ -d .git ]; then
     show_message "Git" "Recloning"
 
     remote=$(git remote get-url origin)
     directory=${PWD##*/}
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    user=$(git config user.name)
+    mail=$(git config user.mail)
+    email=$(git config user.email)
 
     cd ..
     sudo rm -rf $directory
@@ -233,6 +241,15 @@ execute_git_clone() {
   git clone $remote $directory
   cd $directory
   git config core.fileMode false
+
+  if ! [ -z $branch ]; then
+    execute_git_branch $branch
+    execute_git_pull $branch
+
+    git config user.name $user
+    git config user.mail $mail
+    git config user.email $email
+  fi
 }
 
 alias egc=execute_git_clone
