@@ -246,7 +246,7 @@ execute_git_clone() {
     execute_git_branch $branch
     execute_git_pull $branch
 
-    git config user.name $user
+    git config user.name "${user}"
     git config user.mail $mail
     git config user.email $email
   fi
