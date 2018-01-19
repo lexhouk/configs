@@ -78,12 +78,18 @@ execute_remote() {
         local title=$(get "${project}info_title")
         show_message "SSH" "Connecting to \"$1\" host of \"${title}\" project"
 
+        local port=$(get "${ssh}port")
+
+        if [ -z $port ]; then
+          port=22
+        fi
+
         local directory=$(get "${ssh}directory")
 
         if ! [ -z $directory ]; then
-          ssh ${user}@${host} -t "cd ${directory} ; bash"
+          ssh -p ${port} ${user}@${host} -t "cd ${directory} ; bash"
         else
-          ssh ${user}@${host}
+          ssh -p ${port} ${user}@${host}
         fi
       else
         show_message "SSH" "User not defined!"

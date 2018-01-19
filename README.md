@@ -18,6 +18,7 @@ Format for "projects.yml" file:
     branch: <git_branch_name>
     ssh:
       host: <ip_or_domain_name_for_remote_ssh_host>
+      port: <port_for_remote_ssh_host>
       user: <remote_ssh_username>
       directory: <path>
   docker: <container_name>
