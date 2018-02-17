@@ -610,6 +610,20 @@ alias edlu=execute_drupal_update
 
 # Projects data
 
+execute_project() {
+  local project=$(get_project)
+
+  if [ -z $project ]; then
+    show_message "Undefined project!"
+  else
+    local title=$(get "${project}info_title")
+    show_message $title "Reinstalling site"
+    eval "execute_${project%_*}"
+  fi
+}
+
+alias ep=execute_project
+
 execute_project_update_all() {
   local project=$(get_project)
 
