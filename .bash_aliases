@@ -403,6 +403,19 @@ execute_docker() {
   $@
 }
 
+execute_docker_database_container() {
+  local project=$(get_project)
+
+  if ! [ -z $project ]; then
+    local container=$(get "${project}docker_db")
+
+    if ! [ -z $container ]; then
+      echo $container
+      return
+    fi
+  fi
+}
+
 # MySQL
 
 alias ems='sudo service mysql start '
@@ -423,29 +436,60 @@ mysql_export() {
 
 alias eme=mysql_export
 
-mysql_create_db() {
-  mysql -u root -proot -e "create database $1"
+execute_mysql_create_db() {
+  show_message "MySQL" "Creating \"$1\" database"
+
+  local container=$(execute_docker_database_container)
+  local database=$1
+
+  if [ -z $container ]; then
+    mysql -u root -proot -e "create database ${database}"
+  else
+    docker exec -it $container mysql -u root -proot -e "create database ${database}"
+  fi
+
   show_message "MySQL" "Created database called \"$1\"."
 }
 
-alias emc=mysql_create_db
+alias emc=execute_mysql_create_db
 
-mysql_drop_db() {
+execute_mysql_drop_db() {
   show_message "MySQL" "Deleting \"$1\" database"
-  mysql -u root -proot -e "drop database $1"
+
+  local container=$(execute_docker_database_container)
+  local database=$1
+
+  if [ -z $container ]; then
+    mysql -u root -proot -e "drop database ${database}"
+  else
+    docker exec -it $container mysql -u root -proot -e "drop database ${database}"
+  fi
 }
 
-alias emd=mysql_drop_db
+alias emd=execute_mysql_drop_db
 
 execute_mysql_reload() {
-  emd $1
-  emc $1
+  local database=$1
 
-  if [ -e "$2" ]; then
-    show_message "Loading \"$1\" database from \"$2\" file"
-    pv $2 | mysql -u root -proot $1
-    show_message "Recreated \"$1\" database and load data from \"$2\" dump file."
+  emd $database
+  emc $database
+
+  if [ -z "$2" ]; then
+    return
   fi
+
+  local container=$(execute_docker_database_container)
+  local dump=$2
+
+  show_message "MySQL" "Loading \"${database}\" database from \"${dump}\" file"
+
+  if [ -z $container ]; then
+    pv $dump | mysql -u root -proot $database
+  else
+    docker exec -it $container bash -c "mysql -u root -proot ${database} < ${dump}"
+  fi
+
+  show_message "MySQL" "Recreated \"${database}\" database and load data from \"${dump}\" dump file."
 }
 
 alias emr=execute_mysql_reload

@@ -21,5 +21,6 @@ Format for "projects.yml" file:
       port: <port_for_remote_ssh_host>
       user: <remote_ssh_username>
       directory: <path>
-  docker: <container_name>
+  docker: <web_server_container_name>
+  docker_db: <databases_server_container_name>
 ```
