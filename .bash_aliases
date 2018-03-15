@@ -604,9 +604,27 @@ alias edssd=execute_drush_status_database
 
 # Apache
 
-alias eas='sudo service apache2 start '
-alias ear='sudo service apache2 restart '
-alias eap='sudo service apache2 stop '
+execute_apache_start() {
+  show_message "Apache" "Starting"
+  sudo service apache2 start
+}
+
+alias eas=execute_apache_start
+
+execute_apache_restart() {
+  show_message "Apache" "Restarting"
+  sudo service apache2 restart
+}
+
+alias ear=execute_apache_restart
+
+execute_apache_stop() {
+  show_message "Apache" "Stopping"
+  sudo service apache2 stop
+}
+
+alias eap=execute_apache_stop
+
 alias eae='sudo a2ensite '
 alias ead='sudo a2dissite '
 
