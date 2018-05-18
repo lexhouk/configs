@@ -340,6 +340,14 @@ git_submodule_add_module() {
 alias egsa=git_submodule_add_module
 alias egsu='git submodule update --init '
 
+execute_git_user() {
+  local name=$(git config user.name)
+  local email=$(git config user.email)
+  show_message "Git" "Owner of future commits will be ${name} <${email}>"
+}
+
+alias egu=execute_git_user
+
 # Docker
 
 alias edrs='sudo service docker start '
@@ -365,7 +373,7 @@ docker_clear() {
 alias edrc=docker_clear
 
 execute_docker_list() {
-  show_message "Docker" "Show running containers..."
+  show_message "Docker" "Getting list of running containers"
   docker ps --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.RunningFor}}\t{{.Status}}"
 }
 
