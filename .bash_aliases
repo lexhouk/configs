@@ -600,7 +600,7 @@ execute_drush_user_login_uid_1_no_browser() {
   execute_drush uli --uid=$1 --no-browser
 }
 
-alias edslfn=execute_drush_user_login_uid_1_no_browser
+alias edslfn=execute_drush_uli_uid_no_browser
 
 execute_drush_status() {
   show_message "Drush" "Getting status"
