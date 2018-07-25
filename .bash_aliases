@@ -616,6 +616,13 @@ execute_drush_status_database() {
 
 alias edssd=execute_drush_status_database
 
+execute_drush_update_database() {
+  show_message "Drush" "Updating database"
+  execute_drush -y updb
+}
+
+alias edssd=execute_drush_update_database
+
 # Apache
 
 execute_apache_start() {
