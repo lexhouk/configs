@@ -494,6 +494,10 @@ execute_mysql_reload() {
   if [ -z $container ]; then
     pv $dump | mysql -u root -proot $database
   else
+    if [ -f "$dump" ]; then
+      docker cp $dump "${container}:/"
+    fi
+
     docker exec -it $container bash -c "mysql -u root -proot ${database} < ${dump}"
   fi
 
@@ -570,31 +574,33 @@ execute_drush_clear_root() {
 
 alias edscr=execute_drush_clear_root
 
-execute_drush_user_login() {
-  show_message "Drush" "Display a one time login link for the given user account (defaults to uid 1)."
-  execute_drush uli
-}
-
-alias edsu=execute_drush_user_login
-
-execute_drush_uli() {
-  execute_drush uli --uid=$1
-}
-
-alias edsus=execute_drush_uli
-
-execute_drush_uli_uid_no_browser() {
-  execute_drush uli --uid=$1 --no-browser
-}
-
-alias edsusn=execute_drush_uli_uid_no_browser
-
 execute_drush_dump() {
   show_message "Drush" "Creating dump of database"
   execute_drush sql-dump --result-file=$1.sql
 }
 
 alias edsd=execute_drush_dump
+
+execute_drush_user_login() {
+  show_message "Drush" "Display a one time login link for the given user account (defaults to uid 1)."
+  execute_drush uli
+}
+
+alias edsl=execute_drush_user_login
+
+execute_drush_user_login_uid_1() {
+  show_message "Drush" "Display a one time login link for the uid 1 user account."
+  execute_drush uli --uid=$1
+}
+
+alias edslf=execute_drush_user_login_uid_1
+
+execute_drush_user_login_uid_1_no_browser() {
+  show_message "Drush" "Display a one time login link for the uid 1 user account without openning browser."
+  execute_drush uli --uid=$1 --no-browser
+}
+
+alias edslfn=execute_drush_user_login_uid_1_no_browser
 
 execute_drush_status() {
   show_message "Drush" "Getting status"
@@ -701,7 +707,7 @@ execute_project_update_all() {
     show_message "Undefined project!"
   else
     local title=$(get "${project}info_title")
-    show_message 'Updating "'${title}'" project database'
+    show_message "${title}" "Updating database"
     local remote="${project}remote_"
     local host="${remote}host"
     local user="${remote}user"
