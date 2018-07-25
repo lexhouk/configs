@@ -621,7 +621,7 @@ execute_drush_update_database() {
   execute_drush -y updb
 }
 
-alias edssd=execute_drush_update_database
+alias edsu=execute_drush_update_database
 
 # Apache
 
