@@ -714,7 +714,7 @@ execute_project() {
     show_message "Undefined project!"
   else
     local title=$(get "${project}info_title")
-    show_message $title "Reinstalling site"
+    show_message "${title}" "Reinstalling site"
     eval "execute_${project%_*}"
   fi
 }
