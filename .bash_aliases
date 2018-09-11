@@ -281,14 +281,13 @@ execute_git_push() {
 }
 
 alias egh=execute_git_push
-alias eghm='execute_git_push master'
 
-execute_git_push_dev() {
+execute_git_push_enviroment() {
   local project=$(get_project)
-  local branch="dev"
+  local branch="$1"
 
   if ! [ -z $project ]; then
-    local special_branch=$(get "${project}dev_branch")
+    local special_branch=$(get "${project}$2_branch")
 
     if ! [ -z $special_branch ]; then
       branch=$special_branch
@@ -298,7 +297,8 @@ execute_git_push_dev() {
   execute_git_push $branch
 }
 
-alias eghd=execute_git_push_dev
+alias eghd='execute_git_push_enviroment develop dev'
+alias eghm='execute_git_push_enviroment master live'
 
 execute_git_pull() {
   show_message "Git" "Pulling from \"$1\" branch"
