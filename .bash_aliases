@@ -268,7 +268,7 @@ alias egfmd='git config core.fileMode false '
 
 execute_git_fetch() {
   show_message "Git" "Fetching"
-  git fetch
+  git fetch --prune
 }
 
 alias egf=execute_git_fetch
