@@ -716,6 +716,7 @@ execute_project() {
     local title=$(get "${project}info_title")
     show_message "${title}" "Reinstalling site"
     eval "execute_${project%_*}"
+    notify-send "${title}" "The project has been installed."
   fi
 }
 
