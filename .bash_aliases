@@ -105,19 +105,20 @@ execute_remote() {
 alias erd="execute_remote dev"
 alias erl="execute_remote live"
 
-execute_remote_dev_transfer() {
+execute_remote_transfer() {
   local project=$(get_project)
+  local enviroment="$1"
 
   if ! [ -z $project ]; then
-    local host=$(get "${project}dev_ssh_host")
+    local host=$(get "${project}${enviroment}_ssh_host")
 
     if ! [ -z $host ]; then
-      local user=$(get "${project}dev_ssh_user")
+      local user=$(get "${project}${enviroment}_ssh_user")
 
       if ! [ -z $user ]; then
         local title=$(get "${project}info_title")
-        show_message "SSH" "Downloading file(s) from development host of \"${title}\" project"
-        scp ${user}@${host}:$1 .
+        show_message "SSH" "Downloading file(s) from ${enviroment} host of \"${title}\" project"
+        scp ${user}@${host}:$2 .
       else
         show_message "SSH" "User not defined!"
       fi
@@ -129,7 +130,8 @@ execute_remote_dev_transfer() {
   fi
 }
 
-alias erdt="execute_remote_dev_transfer $1"
+alias erdt="execute_remote_transfer dev $1"
+alias erlt="execute_remote_transfer live $1"
 
 # Composer
 
