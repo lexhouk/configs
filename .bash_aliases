@@ -107,17 +107,17 @@ alias erl="execute_remote live"
 
 execute_remote_transfer() {
   local project=$(get_project)
-  local enviroment="$1"
+  local environment="$1"
 
   if ! [ -z $project ]; then
-    local host=$(get "${project}${enviroment}_ssh_host")
+    local host=$(get "${project}${environment}_ssh_host")
 
     if ! [ -z $host ]; then
-      local user=$(get "${project}${enviroment}_ssh_user")
+      local user=$(get "${project}${environment}_ssh_user")
 
       if ! [ -z $user ]; then
         local title=$(get "${project}info_title")
-        show_message "SSH" "Downloading file(s) from ${enviroment} host of \"${title}\" project"
+        show_message "SSH" "Downloading file(s) from ${environment} host of \"${title}\" project"
         scp ${user}@${host}:$2 .
       else
         show_message "SSH" "User not defined!"
@@ -165,7 +165,7 @@ execute_git_branch() {
 
 alias egbs=execute_git_branch
 
-execute_git_branch_enviroment() {
+execute_git_branch_environment() {
   local project=$(get_project)
   local branch="$1"
 
@@ -180,8 +180,8 @@ execute_git_branch_enviroment() {
   execute_git_branch $branch
 }
 
-alias egbd='execute_git_branch_enviroment dev dev'
-alias egbm='execute_git_branch_enviroment master live'
+alias egbd='execute_git_branch_environment dev dev'
+alias egbm='execute_git_branch_environment master live'
 
 execute_git_changes() {
   if [ "$#" == 0 ]; then
@@ -284,7 +284,7 @@ execute_git_push() {
 
 alias egh=execute_git_push
 
-execute_git_push_enviroment() {
+execute_git_push_environment() {
   local project=$(get_project)
   local branch="$1"
 
@@ -299,8 +299,8 @@ execute_git_push_enviroment() {
   execute_git_push $branch
 }
 
-alias eghd='execute_git_push_enviroment develop dev'
-alias eghm='execute_git_push_enviroment master live'
+alias eghd='execute_git_push_environment develop dev'
+alias eghm='execute_git_push_environment master live'
 
 execute_git_pull() {
   show_message "Git" "Pulling from \"$1\" branch"
@@ -309,7 +309,7 @@ execute_git_pull() {
 
 alias egl=execute_git_pull
 
-execute_git_pull_enviroment() {
+execute_git_pull_environment() {
   local project=$(get_project)
   local branch="$1"
 
@@ -324,8 +324,8 @@ execute_git_pull_enviroment() {
   execute_git_pull $branch
 }
 
-alias egld='execute_git_pull_enviroment dev dev'
-alias eglm='execute_git_pull_enviroment master live'
+alias egld='execute_git_pull_environment dev dev'
+alias eglm='execute_git_pull_environment master live'
 
 alias egl-f2f-ts='git pull origin master '
 
@@ -786,22 +786,22 @@ alias escf=search_command
 
 alias esh='sudo gedit /etc/hosts'
 
-execute_system_enviroment() {
+execute_system_environment() {
   STATUS=$(sudo service docker status)
   if [ "$STATUS" == "docker stop/waiting" ]; then
-    show_message "Changing enviroment from local to Docker"
+    show_message "Changing environment from local to Docker"
     eap
     emp
     edrs
   else
-    show_message "Changing enviroment from Docker to local"
+    show_message "Changing environment from Docker to local"
     edrp
     eas
     ems
   fi
 }
 
-alias ese=execute_system_enviroment
+alias ese=execute_system_environment
 
 execute_system_space() {
   show_message "System" "Getting free space on the disks"
