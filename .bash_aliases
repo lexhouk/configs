@@ -599,7 +599,24 @@ alias edsi=execute_drush_config_import
 
 execute_drush_user_login() {
   show_message "Drush" "Display a one time login link for the given user account (defaults to uid 1)."
-  execute_drush uli
+
+  local host='127.0.0.1'
+  local project=$(get_project)
+
+  if ! [ -z $project ]; then
+    local container=$(get "${project}docker")
+
+    if ! [ -z $container ]; then
+      local ports=$(docker ps --filter name=^/${container}$ --format "{{.Ports}}")
+      ports="${ports/0.0.0.0:/}"
+      ports="${ports/->80\/tcp/}"
+      host+=":${ports}"
+    fi
+  fi
+
+  local url=$(execute_drush uli)
+
+  echo "${url/default/$host}"
 }
 
 alias edsl=execute_drush_user_login
