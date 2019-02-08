@@ -144,10 +144,17 @@ alias eci=execute_composer_install
 
 execute_composer_update() {
   show_message "Composer" "Updating"
-  composer update
+  composer update $@
 }
 
 alias ecu=execute_composer_update
+
+execute_composer_update_debug() {
+  show_message "Composer" "Updating in debug mode..."
+  composer update -vvv $@
+}
+
+alias ecud=execute_composer_update_debug
 
 # GIT
 
