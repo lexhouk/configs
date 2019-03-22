@@ -202,6 +202,13 @@ execute_git_changes() {
 
 alias egch=execute_git_changes
 
+execute_git_delete() {
+  show_message "Git" "Deleting \"$1\" branch"
+  git branch -D $1
+}
+
+alias egd=execute_git_delete
+
 alias gk='gitk --all&'
 alias gx='gitx --all'
 alias gf='git fetch '
