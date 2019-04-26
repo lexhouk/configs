@@ -597,19 +597,26 @@ execute_drush_dump() {
 
 alias edsd=execute_drush_dump
 
+execute_drush_enable() {
+  show_message "Drush" "Enabling module(s)"
+  execute_drush -y en $@
+}
+
+alias edse=execute_drush_enable
+
 execute_drush_config_export() {
   show_message "Drush" "Exporting configuration"
   execute_drush -y cex
 }
 
-alias edse=execute_drush_config_export
+alias edsce=execute_drush_config_export
 
 execute_drush_config_import() {
   show_message "Drush" "Importing configuration"
   execute_drush -y cim
 }
 
-alias edsi=execute_drush_config_import
+alias edsci=execute_drush_config_import
 
 execute_drush_user_login() {
   show_message "Drush" "Display a one time login link for the given user account (defaults to uid 1)."
