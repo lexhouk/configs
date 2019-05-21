@@ -3,6 +3,10 @@ Some configuration for linux terminal and programs.
 Format for "projects.yml" file:
 
 ```
+git:
+  user: <git_username>
+  mail: <git_email>
+
 <project_name>:
   info:
     title: <project_title>

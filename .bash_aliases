@@ -258,6 +258,19 @@ execute_git_clone() {
 
     remote=$1
     directory=$2
+
+    local projects_user=$(get project_git_user)
+
+    if ! [ -z "${projects_user}" ]; then
+      user=$projects_user
+    fi
+
+    local projects_mail=$(get project_git_mail)
+
+    if ! [ -z $projects_mail ]; then
+      mail=$projects_mail
+      email=$projects_mail
+    fi
   fi
 
   git clone $remote $directory
@@ -267,9 +280,17 @@ execute_git_clone() {
   if ! [ -z $branch ]; then
     execute_git_branch $branch
     execute_git_pull $branch
+  fi
 
+  if ! [ -z "${user}" ]; then
     git config user.name "${user}"
+  fi
+
+  if ! [ -z $mail ]; then
     git config user.mail $mail
+  fi
+
+  if ! [ -z $email ]; then
     git config user.email $email
   fi
 }
