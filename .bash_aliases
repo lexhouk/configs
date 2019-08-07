@@ -385,6 +385,25 @@ execute_git_user() {
 
 alias egu=execute_git_user
 
+execute_git_user_fix() {
+  local user=$(get project_git_user)
+
+  if ! [ -z "${user}" ]; then
+    git config user.name "${user}"
+  fi
+
+  local mail=$(get project_git_mail)
+
+  if ! [ -z $mail ]; then
+    git config user.mail $mail
+    git config user.email $mail
+  fi
+
+  execute_git_user
+}
+
+alias eguf=execute_git_user_fix
+
 # Docker
 
 alias edrs='sudo service docker start '
