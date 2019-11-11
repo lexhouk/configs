@@ -1,6 +1,11 @@
 Some configuration for linux terminal and programs.
 
-Format for "projects.yml" file:
+# Commands list
+Command | Parameter | Description | Example
+--------|-----------|------------ |--------
+epsh | Filename without extension | Creating dump of database | epsh master
+
+# Format for "projects.yml" file
 
 ```
 git:
