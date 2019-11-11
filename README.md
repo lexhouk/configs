@@ -1,9 +1,27 @@
 Some configuration for linux terminal and programs.
 
 # Commands list
-Command | Parameter | Description | Example
---------|-----------|------------ |--------
-epsh | Filename without extension | Creating dump of database | epsh master
+<table>
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Parameter</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan="4" align="center">platform.sh</td>
+    </tr>
+    <tr>
+      <td>epsh</td>
+      <td>Filename without extension</td>
+      <td>Creating dump of database</td>
+      <td>epsh master</td>
+    </tr>
+  </tbody>
+</table>
 
 # Format for "projects.yml" file
 
