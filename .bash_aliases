@@ -785,6 +785,24 @@ execute_drupal_update() {
 
 alias edlu=execute_drupal_update
 
+# platform.sh
+
+execute_platform() {
+  show_message "platform.sh" "Creating dump of database"
+
+  local file="${1}.sql"
+
+  if [ -f $file ]; then
+    rm $file
+  fi
+
+  file+=".gz"
+  platform db:dump --gzip -f $file
+  gunzip $file
+}
+
+alias epsh=execute_platform
+
 # Projects data
 
 execute_project() {
