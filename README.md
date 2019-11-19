@@ -50,4 +50,6 @@ git:
       directory: <path>
   docker: <web_server_container_name>
   docker_db: <databases_server_container_name>
+  drush:
+    uri: <domain_from_multisite_environment>
 ```

@@ -583,7 +583,18 @@ alias emus=mysql_create_user_special
 # Drush
 
 execute_drush() {
-  execute_docker drush $@
+  local arguments=$@
+  local project=$(get_project)
+
+  if ! [ -z $project ]; then
+    local uri=$(get "${project}drush_uri")
+
+    if ! [ -z $uri ]; then
+      arguments+=" --uri=${uri}"
+    fi
+
+    execute_docker drush "${arguments}"
+  fi
 }
 
 execute_drush_execute() {
@@ -603,7 +614,7 @@ execute_drush_clear() {
     local container=$(get "${project}docker")
 
     if ! [ -z $container ]; then
-      edre $container drush cr
+      execute_drush cr
       docker=1
     fi
   fi
