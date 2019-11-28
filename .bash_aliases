@@ -68,7 +68,8 @@ execute_remote() {
   local project=$(get_project)
 
   if ! [ -z $project ]; then
-    local ssh="${project}$1_ssh_"
+    local environment="$1"
+    local ssh="${project}${environment}_ssh_"
     local host=$(get "${ssh}host")
 
     if ! [ -z $host ]; then
@@ -76,7 +77,7 @@ execute_remote() {
 
       if ! [ -z $user ]; then
         local title=$(get "${project}info_title")
-        show_message "SSH" "Connecting to \"$1\" host of \"${title}\" project"
+        show_message "SSH" "Connecting to \"${environment}\" host of \"${title}\" project"
 
         local port=$(get "${ssh}port")
 
@@ -107,17 +108,18 @@ alias erl="execute_remote live"
 
 execute_remote_transfer() {
   local project=$(get_project)
-  local environment="$1"
 
   if ! [ -z $project ]; then
-    local host=$(get "${project}${environment}_ssh_host")
+    local environment="$1"
+    local ssh="${project}${environment}_ssh_"
+    local host=$(get "${ssh}host")
 
     if ! [ -z $host ]; then
-      local user=$(get "${project}${environment}_ssh_user")
+      local user=$(get "${ssh}user")
 
       if ! [ -z $user ]; then
         local title=$(get "${project}info_title")
-        show_message "SSH" "Downloading file(s) from ${environment} host of \"${title}\" project"
+        show_message "SSH" "Downloading file(s) from \"${environment}\" host of \"${title}\" project"
         scp ${user}@${host}:$2 .
       else
         show_message "SSH" "User not defined!"
