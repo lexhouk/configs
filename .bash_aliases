@@ -120,7 +120,14 @@ execute_remote_transfer() {
       if ! [ -z $user ]; then
         local title=$(get "${project}info_title")
         show_message "SSH" "Downloading file(s) from \"${environment}\" host of \"${title}\" project"
-        scp ${user}@${host}:$2 .
+
+        local port=$(get "${ssh}port")
+
+        if [ -z $port ]; then
+          port=22
+        fi
+
+        scp -P ${port} ${user}@${host}:$2 .
       else
         show_message "SSH" "User not defined!"
       fi
