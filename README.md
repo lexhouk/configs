@@ -12,6 +12,15 @@ Some configuration for linux terminal and programs.
   </thead>
   <tbody>
     <tr>
+      <td colspan="4" align="center">Drush</td>
+    </tr>
+    <tr>
+      <td>edsl</td>
+      <td>User ID</td>
+      <td>Generate a one time login link for the user account</td>
+      <td>edsl 10</td>
+    </tr>
+    <tr>
       <td colspan="4" align="center">platform.sh</td>
     </tr>
     <tr>

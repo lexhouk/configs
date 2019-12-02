@@ -679,8 +679,6 @@ execute_drush_config_import() {
 alias edsci=execute_drush_config_import
 
 execute_drush_user_login() {
-  show_message "Drush" "Display a one time login link for the given user account (defaults to uid 1)."
-
   local host='127.0.0.1'
   local project=$(get_project)
 
@@ -695,19 +693,20 @@ execute_drush_user_login() {
     fi
   fi
 
-  local url=$(execute_drush uli)
+  local user=$1
+
+  if [ -z $user ]; then
+    user=1
+  fi
+
+  show_message "Drush" "Generating a one time login link for the user account with uid ${user}"
+
+  local url=$(execute_drush uli --uid=${user})
 
   echo "${url/default/$host}"
 }
 
 alias edsl=execute_drush_user_login
-
-execute_drush_user_login_uid_1() {
-  show_message "Drush" "Display a one time login link for the uid 1 user account."
-  execute_drush uli --uid=$1
-}
-
-alias edslf=execute_drush_user_login_uid_1
 
 execute_drush_user_login_uid_1_no_browser() {
   show_message "Drush" "Display a one time login link for the uid 1 user account without openning browser."
