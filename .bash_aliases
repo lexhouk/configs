@@ -1,11 +1,19 @@
 # Message
 
 show_message() {
+  local msg=""
+  local ide=$(echo $TERMINAL_EMULATOR)
+
+  if [ -z $ide ]; then
+    msg+="\e[0;33m"
+  else
+    msg+="\e[37m"
+  fi
+
   local now=$(date +"%T.%N")
-  local set_time_color='\e[0;33m'
-  local set_app_color='\e[96m'
   local del_color='\e[0m'
-  local msg="${set_time_color}$now${del_color} "
+
+  msg+="$now${del_color} "
 
   if [ "$#" == 1 ]; then
     msg+="> $1"
@@ -13,7 +21,13 @@ show_message() {
     local text="$2"
     local reg='^\w+ing(|\s[^\.]+)$'
 
-    msg+="${set_app_color}< $1 >${del_color} ${text}"
+    if [ -z $ide ]; then
+      msg+="\e[96m"
+    else
+      msg+="\e[34m"
+    fi
+
+    msg+="< $1 >${del_color} ${text}"
 
     if [[ $text =~ $reg ]]; then
       msg+="..."
