@@ -15,6 +15,12 @@ Some configuration for linux terminal and programs.
       <td colspan="4" align="center">Drush</td>
     </tr>
     <tr>
+      <td>edsf</td>
+      <td>Module name</td>
+      <td>Update feature</td>
+      <td>edsf mymodule_blocks</td>
+    </tr>
+    <tr>
       <td>edsl</td>
       <td>User ID</td>
       <td>Generate a one time login link for the user account</td>

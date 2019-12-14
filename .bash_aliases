@@ -750,6 +750,18 @@ execute_drush_update_database() {
 
 alias edsu=execute_drush_update_database
 
+execute_drush_feature() {
+  show_message "Drush" "Updating feature"
+
+  if [ -z $1 ]; then
+    echo "The command should have one parameter!" >> /dev/stderr
+  else
+    execute_drush -y fr $1
+  fi
+}
+
+alias edsf=execute_drush_feature
+
 # Apache
 
 execute_apache_start() {
