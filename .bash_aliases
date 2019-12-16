@@ -671,12 +671,19 @@ execute_drush_dump() {
 
 alias edsd=execute_drush_dump
 
-execute_drush_enable() {
-  show_message "Drush" "Enabling module(s)"
+execute_drush_module_install() {
+  show_message "Drush" "Installing module(s)"
   execute_drush -y en $@
 }
 
-alias edse=execute_drush_enable
+alias edsmi=execute_drush_module_install
+
+execute_drush_module_uninstall() {
+  show_message "Drush" "Uninstalling module(s)"
+  execute_drush -y pmu $@
+}
+
+alias edsmu=execute_drush_module_uninstall
 
 execute_drush_config_export() {
   show_message "Drush" "Exporting configuration"

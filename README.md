@@ -27,6 +27,18 @@ Some configuration for linux terminal and programs.
       <td>edsl 10</td>
     </tr>
     <tr>
+      <td>edsmi</td>
+      <td>Module name(s)</td>
+      <td>Install module(s)</td>
+      <td>edsmi taxonomy</td>
+    </tr>
+    <tr>
+      <td>edsmu</td>
+      <td>Module name(s)</td>
+      <td>Uninstall module(s)</td>
+      <td>edsmu ban</td>
+    </tr>
+    <tr>
       <td colspan="4" align="center">platform.sh</td>
     </tr>
     <tr>
