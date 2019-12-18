@@ -557,16 +557,24 @@ alias emd=execute_mysql_drop_db
 
 execute_mysql_reload() {
   local database=$1
+  local dump="$2"
+
+  if [ -z "$dump" ]; then
+    local project_name=$(get_project)
+    local project_database=$(get "${project_name}local_database")
+
+    if [ -z $project_database ]; then
+      return
+    else
+      dump=$database
+      database=$project_database
+    fi
+  fi
 
   emd $database
   emc $database
 
-  if [ -z "$2" ]; then
-    return
-  fi
-
   local container=$(execute_docker_database_container)
-  local dump=$2
 
   show_message "MySQL" "Loading \"${database}\" database from \"${dump}\" file"
 

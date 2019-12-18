@@ -5,7 +5,7 @@ Some configuration for linux terminal and programs.
   <thead>
     <tr>
       <th>Command</th>
-      <th>Parameter</th>
+      <th>Parameters</th>
       <th>Description</th>
       <th>Example</th>
     </tr>
@@ -37,6 +37,20 @@ Some configuration for linux terminal and programs.
       <td>Module name(s)</td>
       <td>Uninstall module(s)</td>
       <td>edsmu ban</td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">MySQL</td>
+    </tr>
+    <tr>
+      <td>emr</td>
+      <td>
+        <ul>
+          <li>Database name (optional)</li>
+          <li>SQL-file</li>
+        </ul>
+      </td>
+      <td>Load database from file</td>
+      <td>emr mydatabase dump.sql</td>
     </tr>
     <tr>
       <td colspan="4" align="center">platform.sh</td>
