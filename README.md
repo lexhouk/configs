@@ -15,6 +15,12 @@ Some configuration for linux terminal and programs.
       <td colspan="4" align="center">Drush</td>
     </tr>
     <tr>
+      <td>edscn</td>
+      <td>-</td>
+      <td>Run cron</td>
+      <td>edscn</td>
+    </tr>
+    <tr>
       <td>edsf</td>
       <td>Module name</td>
       <td>Update feature</td>
