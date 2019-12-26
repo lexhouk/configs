@@ -665,6 +665,13 @@ execute_drush_clear() {
 
 alias edsc=execute_drush_clear
 
+execute_drush_cron() {
+  show_message "Drush" "Running cron"
+  execute_drush cron
+}
+
+alias edscn=execute_drush_cron
+
 execute_drush_clear_root() {
   show_message "Drush" "Clearing all caches by root"
   execute_docker sudo drush cc all
