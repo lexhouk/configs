@@ -880,7 +880,16 @@ execute_project() {
   else
     local title=$(get "${project}info_title")
     show_message "${title}" "Reinstalling site"
-    eval "execute_${project%_*}"
+
+    local function="execute_${project%_*}"
+
+    if [ -z "$(cat ~/.bash_aliases | grep $function)" ]; then
+      epua
+      edsc
+    else
+      eval $function
+    fi
+
     notify-send "${title}" "The project has been installed."
   fi
 }
