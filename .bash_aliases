@@ -872,6 +872,27 @@ alias epsh=execute_platform
 
 # Projects data
 
+execute_project_update_all() {
+  local project=$(get_project)
+
+  if [ -z $project ]; then
+    show_message "Undefined project!"
+  else
+    local title=$(get "${project}info_title")
+    show_message "${title}" "Updating database"
+    local remote="${project}remote_"
+    local host="${remote}host"
+    local user="${remote}user"
+    local password="${remote}password"
+    local database="${remote}database"
+    mysqldump -h $(get $host) -u $(get $user) -p$(get $password) $(get $database) > db.sql
+    emr $(get "${project}local_database") db.sql
+    rm db.sql
+  fi
+}
+
+alias epua=execute_project_update_all
+
 execute_project() {
   local project=$(get_project)
 
@@ -895,27 +916,6 @@ execute_project() {
 }
 
 alias ep=execute_project
-
-execute_project_update_all() {
-  local project=$(get_project)
-
-  if [ -z $project ]; then
-    show_message "Undefined project!"
-  else
-    local title=$(get "${project}info_title")
-    show_message "${title}" "Updating database"
-    local remote="${project}remote_"
-    local host="${remote}host"
-    local user="${remote}user"
-    local password="${remote}password"
-    local database="${remote}database"
-    mysqldump -h $(get $host) -u $(get $user) -p$(get $password) $(get $database) > db.sql
-    emr $(get "${project}local_database") db.sql
-    rm db.sql
-  fi
-}
-
-alias epua=execute_project_update_all
 
 # Others
 
