@@ -3,15 +3,22 @@
 show_message() {
   local msg=""
   local ide=$(echo $TERMINAL_EMULATOR)
+  local code=""
+
+  if [[ ${BASH_VERSION%%[^0-9]*} > 3 ]]; then
+    code="\e"
+  else
+    code="\x1B"
+  fi
 
   if [ -z $ide ]; then
-    msg+="\e[0;33m"
+    msg+="$code[0;33m"
   else
-    msg+="\e[37m"
+    msg+="$code[37m"
   fi
 
   local now=$(date +"%T.%N")
-  local del_color='\e[0m'
+  local del_color="$code[0m"
 
   msg+="$now${del_color} "
 
@@ -22,9 +29,9 @@ show_message() {
     local reg='^\w+ing(|\s[^\.]+)$'
 
     if [ -z $ide ]; then
-      msg+="\e[96m"
+      msg+="$code[96m"
     else
-      msg+="\e[34m"
+      msg+="$code[34m"
     fi
 
     msg+="< $1 >${del_color} ${text}"
