@@ -12,6 +12,27 @@ Some configuration for linux terminal and programs.
   </thead>
   <tbody>
     <tr>
+      <td colspan="4" align="center">Apache</td>
+    </tr>
+    <tr>
+      <td>eap</td>
+      <td>-</td>
+      <td>Stop</td>
+      <td>eap</td>
+    </tr>
+    <tr>
+      <td>ear</td>
+      <td>-</td>
+      <td>Restart</td>
+      <td>ear</td>
+    </tr>
+    <tr>
+      <td>eas</td>
+      <td>-</td>
+      <td>Start</td>
+      <td>eas</td>
+    </tr>
+    <tr>
       <td colspan="4" align="center">Drush</td>
     </tr>
     <tr>
@@ -57,6 +78,33 @@ Some configuration for linux terminal and programs.
       </td>
       <td>Load database from file</td>
       <td>emr mydatabase dump.sql</td>
+    </tr>
+    <tr>
+      <td colspan="4" align="center">Operating system</td>
+    </tr>
+    <tr>
+      <td>esc</td>
+      <td>-</td>
+      <td>Edit commands file</td>
+      <td>esc</td>
+    </tr>
+    <tr>
+      <td>escf</td>
+      <td>Phrase</td>
+      <td>Search a phrase in the commands file</td>
+      <td>escf edit</td>
+    </tr>
+    <tr>
+      <td>esh</td>
+      <td>-</td>
+      <td>Edit hosts file</td>
+      <td>esh</td>
+    </tr>
+    <tr>
+      <td>esp</td>
+      <td>-</td>
+      <td>Set the webserver user as the owner of the Drupal default files directory</td>
+      <td>esp</td>
     </tr>
     <tr>
       <td colspan="4" align="center">platform.sh</td>

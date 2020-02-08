@@ -793,26 +793,19 @@ alias edsf=execute_drush_feature
 
 # Apache
 
-execute_apache_start() {
-  show_message "Apache" "Starting"
-  sudo service apache2 start
+execute_apache() {
+  show_message "Apache" $1
+
+  if [ $(uname) == 'Darwin' ]; then
+    sudo apachectl $2
+  else
+    sudo service apache2 $2
+  fi
 }
 
-alias eas=execute_apache_start
-
-execute_apache_restart() {
-  show_message "Apache" "Restarting"
-  sudo service apache2 restart
-}
-
-alias ear=execute_apache_restart
-
-execute_apache_stop() {
-  show_message "Apache" "Stopping"
-  sudo service apache2 stop
-}
-
-alias eap=execute_apache_stop
+alias eas='execute_apache Starting start '
+alias ear='execute_apache Restarting restart '
+alias eap='execute_apache Stopping stop '
 
 alias eae='sudo a2ensite '
 alias ead='sudo a2dissite '
@@ -954,16 +947,49 @@ execute_system_deploy() {
 alias esd=execute_system_deploy
 
 alias esf='cd /hdd/www/'
-alias esp='sudo chown -R www-data:www-data sites/default '
-alias esc='nano ~/.bash_aliases'
 
-search_command() {
-  cat ~/.bash_aliases | grep "$1"
+execute_system_permissions() {
+  show_message "System" "Setting the webserver user as the owner of the Drupal default files directory"
+
+  local name='www-data'
+
+  if [ $(uname) == 'Darwin' ]; then
+    name='_www'
+  fi
+
+  sudo chown -R $name:$name sites/default
 }
 
-alias escf=search_command
+alias esp=execute_system_permissions
 
-alias esh='sudo gedit /etc/hosts'
+execute_system_commands_edit() {
+  show_message "System" "Editing commands file"
+  nano ~/.bash_aliases
+}
+
+alias esc=execute_system_commands_edit
+
+execute_system_commands_search() {
+  local phrase=$1
+  show_message "System" "Looking for \"$phrase\" in the commands file"
+  cat ~/.bash_aliases | grep "$phrase"
+}
+
+alias escf=execute_system_commands_search
+
+execute_system_hosts() {
+  show_message "System" "Editing hosts file"
+
+  local editor='grep'
+
+  if [ $(uname) == 'Darwin' ]; then
+    editor='nano'
+  fi
+
+  sudo $editor /etc/hosts
+}
+
+alias esh=execute_system_hosts
 
 execute_system_environment() {
   STATUS=$(sudo service docker status)
