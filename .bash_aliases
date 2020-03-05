@@ -570,16 +570,24 @@ execute_mysql_reload() {
     local project_name=$(get_project)
     local project_database=$(get "${project_name}local_database")
 
-    if [ -z $project_database ]; then
-      return
-    else
-      dump=$database
+    if [ -z $database ]; then
       database=$project_database
+    else
+      if [ -z $project_database ]; then
+        return
+      else
+        dump=$database
+        database=$project_database
+      fi
     fi
   fi
 
   emd $database
   emc $database
+
+  if [ $# == 0 ]; then
+    return
+  fi
 
   local container=$(execute_docker_database_container)
 

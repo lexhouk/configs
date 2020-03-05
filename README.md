@@ -73,10 +73,10 @@ Some configuration for linux terminal and programs.
       <td>
         <ul>
           <li>Database name (optional)</li>
-          <li>SQL-file</li>
+          <li>SQL-file (optional)</li>
         </ul>
       </td>
-      <td>Load database from file</td>
+      <td>Load database from file or just delete all data and structure if the file is not specified</td>
       <td>emr mydatabase dump.sql</td>
     </tr>
     <tr>
