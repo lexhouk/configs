@@ -167,7 +167,7 @@ alias erlt="execute_remote_transfer live $1"
 
 execute_composer_install() {
   show_message "Composer" "Installing"
-  composer install
+  composer install $@
 }
 
 alias eci=execute_composer_install

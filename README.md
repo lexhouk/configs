@@ -33,6 +33,15 @@ Some configuration for linux terminal and programs.
       <td>eas</td>
     </tr>
     <tr>
+      <td colspan="4" align="center">Composer</td>
+    </tr>
+    <tr>
+      <td>eci</td>
+      <td>[any]</td>
+      <td>Install</td>
+      <td>eci --no-dev</td>
+    </tr>
+    <tr>
       <td colspan="4" align="center">Drush</td>
     </tr>
     <tr>
