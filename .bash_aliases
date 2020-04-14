@@ -1,4 +1,4 @@
-# Message
+# Message & notification
 
 show_message() {
   local msg=""
@@ -42,6 +42,14 @@ show_message() {
   fi
 
   echo -e $msg
+}
+
+execute_notification() {
+  if [ $(uname) == 'Darwin' ]; then
+    osascript -e "display notification \"$2\" with title \"$1\""
+  else
+    notify-send "$1" "$2"
+  fi
 }
 
 # Parse projects info file.
@@ -919,7 +927,7 @@ execute_project() {
       eval $function
     fi
 
-    notify-send "${title}" "The project has been installed."
+    execute_notification "${title}" "The project has been installed."
   fi
 }
 
