@@ -194,6 +194,13 @@ execute_composer_update_debug() {
 
 alias ecud=execute_composer_update_debug
 
+execute_composer_require() {
+  show_message "Composer" "Adding package"
+  composer require $@
+}
+
+alias ecr=execute_composer_require
+
 # GIT
 
 alias gs='git status '
