@@ -42,6 +42,12 @@ Some configuration for linux terminal and programs.
       <td>eci --no-dev</td>
     </tr>
     <tr>
+      <td>ecr</td>
+      <td>Package name</td>
+      <td>Add package</td>
+      <td>ecr&nbsp;chmez/d8:^0.8</td>
+    </tr>
+    <tr>
       <td colspan="4" align="center">Drush</td>
     </tr>
     <tr>
