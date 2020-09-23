@@ -278,6 +278,13 @@ execute_git_remote_change() {
 
 alias egrc=execute_git_remote_change
 
+execute_git_revert() {
+  show_message "Git" "Reverting some existing commit(s)"
+  git revert $@
+}
+
+alias egrv=execute_git_revert
+
 execute_git_clone() {
   local remote=""
   local directory=""

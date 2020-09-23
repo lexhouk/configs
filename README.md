@@ -81,6 +81,15 @@ Some configuration for linux terminal and programs.
       <td>edsmu ban</td>
     </tr>
     <tr>
+      <td colspan="4" align="center">Git</td>
+    </tr>
+    <tr>
+      <td>egrv</td>
+      <td>Commit hash(es)</td>
+      <td>Revert some existing commit(s)</td>
+      <td>egrv 1a4e902815b1619bcf2cc9a284e57c6650ef4098</td>
+    </tr>
+    <tr>
       <td colspan="4" align="center">MySQL</td>
     </tr>
     <tr>
