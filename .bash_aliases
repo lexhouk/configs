@@ -414,20 +414,40 @@ execute_git_pull_environment() {
 alias egld='execute_git_pull_environment dev dev'
 alias eglm='execute_git_pull_environment master live'
 
-alias egl-f2f-ts='git pull origin master '
+git_stash() {
+  show_message "Git" "Stashing the changes in a dirty working directory away"
+  git stash $@
+}
+
+alias egs=git_stash
+
+git_stash_apply() {
+  show_message "Git" "Applying a single stashed state on top of the current working tree state"
+  git stash apply $@
+}
+
+alias egsa=git_stash_apply
 
 git_submodule_add_core() {
-  git submodule add --branch 7.x http://git.drupal.org/project/drupal.git htdocs
+  show_message "Git" "Adding Drupal core as a submodule"
+  git submodule add --branch 7.x https://git.drupalcode.org/project/drupal.git htdocs
 }
 
-alias egs=git_submodule_add_core
+alias egsm=git_submodule_add_core
 
 git_submodule_add_module() {
-  git submodule add --branch 7.x-$2.x http://git.drupal.org/project/$1.git sites/all/modules/contrib/$1
+  show_message "Git" "Adding a Drupal module as a submodule"
+  git submodule add --branch 7.x-$2.x https://git.drupalcode.org/project/$1.git sites/all/modules/contrib/$1
 }
 
-alias egsa=git_submodule_add_module
-alias egsu='git submodule update --init '
+alias egsma=git_submodule_add_module
+
+git_submodule_update() {
+  show_message "Git" "Updating submodules"
+  git submodule update --init $@
+}
+
+alias egsmu=git_submodule_update
 
 execute_git_user() {
   local name=$(git config user.name)

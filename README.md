@@ -90,6 +90,36 @@ Some configuration for linux terminal and programs.
       <td>egrv 1a4e902815b1619bcf2cc9a284e57c6650ef4098</td>
     </tr>
     <tr>
+      <td>egs</td>
+      <td>-</td>
+      <td>Stash the changes in a dirty working directory away</td>
+      <td>egs</td>
+    </tr>
+    <tr>
+      <td>egsa</td>
+      <td>-</td>
+      <td>Apply a single stashed state on top of the current working tree state</td>
+      <td>egsa</td>
+    </tr>
+    <tr>
+      <td>egsm</td>
+      <td>-</td>
+      <td>Add Drupal core as a submodule</td>
+      <td>egsm</td>
+    </tr>
+    <tr>
+      <td>egsma</td>
+      <td>Module name</td>
+      <td>Add a Drupal module as a submodule</td>
+      <td>egsma mymodule_blocks</td>
+    </tr>
+    <tr>
+      <td>egsmu</td>
+      <td>-</td>
+      <td>Update submodules</td>
+      <td>egsmu</td>
+    </tr>
+    <tr>
       <td colspan="4" align="center">MySQL</td>
     </tr>
     <tr>
