@@ -87,7 +87,19 @@ Some configuration for linux terminal and programs.
       <td>egrv</td>
       <td>Commit hash(es)</td>
       <td>Revert some existing commit(s)</td>
-      <td>egrv&nbsp;1a4e902815b1619bcf2c<wbr>c9a284e57c6650ef4098</td>
+      <td>egrv 1a4e902815b1619bcf2cc9a284e57c6650ef4098</td>
+    </tr>
+    <tr>
+      <td>egs</td>
+      <td>-</td>
+      <td>Stash the changes in a dirty working directory away</td>
+      <td>egs</td>
+    </tr>
+    <tr>
+      <td>egsa</td>
+      <td>-</td>
+      <td>Apply a single stashed state on top of the current working tree state</td>
+      <td>egsa</td>
     </tr>
     <tr>
       <td>egsm</td>

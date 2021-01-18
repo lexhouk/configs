@@ -414,6 +414,20 @@ execute_git_pull_environment() {
 alias egld='execute_git_pull_environment dev dev'
 alias eglm='execute_git_pull_environment master live'
 
+git_stash() {
+  show_message "Git" "Stashing the changes in a dirty working directory away"
+  git stash $@
+}
+
+alias egs=git_stash
+
+git_stash_apply() {
+  show_message "Git" "Applying a single stashed state on top of the current working tree state"
+  git stash apply $@
+}
+
+alias egsa=git_stash_apply
+
 git_submodule_add_core() {
   show_message "Git" "Adding Drupal core as a submodule"
   git submodule add --branch 7.x https://git.drupalcode.org/project/drupal.git htdocs
