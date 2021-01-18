@@ -87,7 +87,25 @@ Some configuration for linux terminal and programs.
       <td>egrv</td>
       <td>Commit hash(es)</td>
       <td>Revert some existing commit(s)</td>
-      <td>egrv 1a4e902815b1619bcf2cc9a284e57c6650ef4098</td>
+      <td>egrv&nbsp;1a4e902815b1619bcf2c<wbr>c9a284e57c6650ef4098</td>
+    </tr>
+    <tr>
+      <td>egsm</td>
+      <td>-</td>
+      <td>Add Drupal core as a submodule</td>
+      <td>egsm</td>
+    </tr>
+    <tr>
+      <td>egsma</td>
+      <td>Module name</td>
+      <td>Add a Drupal module as a submodule</td>
+      <td>egsma mymodule_blocks</td>
+    </tr>
+    <tr>
+      <td>egsmu</td>
+      <td>-</td>
+      <td>Update submodules</td>
+      <td>egsmu</td>
     </tr>
     <tr>
       <td colspan="4" align="center">MySQL</td>

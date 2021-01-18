@@ -415,17 +415,25 @@ alias egld='execute_git_pull_environment dev dev'
 alias eglm='execute_git_pull_environment master live'
 
 git_submodule_add_core() {
-  git submodule add --branch 7.x http://git.drupal.org/project/drupal.git htdocs
+  show_message "Git" "Adding Drupal core as a submodule"
+  git submodule add --branch 7.x https://git.drupalcode.org/project/drupal.git htdocs
 }
 
-alias egs=git_submodule_add_core
+alias egsm=git_submodule_add_core
 
 git_submodule_add_module() {
-  git submodule add --branch 7.x-$2.x http://git.drupal.org/project/$1.git sites/all/modules/contrib/$1
+  show_message "Git" "Adding a Drupal module as a submodule"
+  git submodule add --branch 7.x-$2.x https://git.drupalcode.org/project/$1.git sites/all/modules/contrib/$1
 }
 
-alias egsa=git_submodule_add_module
-alias egsu='git submodule update --init '
+alias egsma=git_submodule_add_module
+
+git_submodule_update() {
+  show_message "Git" "Updating submodules"
+  git submodule update --init $@
+}
+
+alias egsmu=git_submodule_update
 
 execute_git_user() {
   local name=$(git config user.name)
