@@ -414,8 +414,6 @@ execute_git_pull_environment() {
 alias egld='execute_git_pull_environment dev dev'
 alias eglm='execute_git_pull_environment master live'
 
-alias egl-f2f-ts='git pull origin master '
-
 git_submodule_add_core() {
   git submodule add --branch 7.x http://git.drupal.org/project/drupal.git htdocs
 }
