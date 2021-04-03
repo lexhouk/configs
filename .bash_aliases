@@ -935,7 +935,7 @@ execute_project_update_all() {
     local user="${remote}user"
     local password="${remote}password"
     local database="${remote}database"
-    mysqldump -h $(get $host) -u $(get $user) -p$(get $password) $(get $database) > db.sql
+    mysqldump -y -h $(get $host) -u $(get $user) -p$(get $password) $(get $database) > db.sql
     emr $(get "${project}local_database") db.sql
     rm db.sql
   fi
