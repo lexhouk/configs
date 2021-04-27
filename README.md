@@ -48,6 +48,20 @@ Some configuration for linux terminal and programs.
       <td>ecr&nbsp;chmez/d8:^0.8</td>
     </tr>
     <tr>
+      <td colspan="4" align="center">Docker</td>
+    </tr>
+    <tr>
+      <td>edre</td>
+      <td>
+        <ul>
+          <li>Container name</li>
+          <li>CLI command</li>
+        </ul>
+      </td>
+      <td>Connect to a container or execute any command</td>
+      <td>edre myproject_web pwd</td>
+    </tr>
+    <tr>
       <td colspan="4" align="center">Drush</td>
     </tr>
     <tr>
