@@ -507,7 +507,21 @@ execute_docker_list() {
 
 alias edrl=execute_docker_list
 
-alias edre='docker exec -it '
+execute_docker_execute() {
+  local arguments=$@
+
+  if [ "$#" == 1 ]; then
+    show_message "Docker" "Connecting to a container"
+    arguments+=" bash"
+  else
+    show_message "Docker" "Executing any command"
+  fi
+
+  docker exec -it ${arguments}
+}
+
+alias edre=execute_docker_execute
+
 alias edra='sudo chmod +x $(find . -name "*.sh") '
 
 execute_docker_up() {
