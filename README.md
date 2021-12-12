@@ -98,6 +98,17 @@ Some configuration for linux terminal and programs.
       <td colspan="4" align="center">Git</td>
     </tr>
     <tr>
+      <td>egc</td>
+      <td>
+        <ul>
+          <li>Repository URL (optional)</li>
+          <li>Folder name (optional)</li>
+        </ul>
+      </td>
+      <td>Re-clone repository when the current folder contains the repository. Otherwise, cloning a repository that is defined in a parameter.</td>
+      <td>egc https://github.com/chmez/configs.git configs</td>
+    </tr>
+    <tr>
       <td>egrv</td>
       <td>Commit hash(es)</td>
       <td>Revert some existing commit(s)</td>

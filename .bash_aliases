@@ -292,9 +292,10 @@ execute_git_clone() {
   local user=""
   local mail=""
   local email=""
+  local project=false
 
   if [ -d .git ]; then
-    show_message "Git" "Recloning"
+    show_message "Git" "Re-cloning"
 
     remote=$(git remote get-url origin)
     directory=${PWD##*/}
@@ -302,6 +303,11 @@ execute_git_clone() {
     user=$(git config user.name)
     mail=$(git config user.mail)
     email=$(git config user.email)
+
+    if [ -d .idea ]; then
+      mv .idea ..
+      project=true
+    fi
 
     cd ..
     sudo rm -rf $directory
@@ -344,6 +350,10 @@ execute_git_clone() {
 
   if ! [ -z $email ]; then
     git config user.email $email
+  fi
+
+  if $project ; then
+    mv ../.idea .
   fi
 }
 
