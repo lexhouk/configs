@@ -746,6 +746,18 @@ execute_drush_clear() {
 
 alias edsc=execute_drush_clear
 
+execute_drush_clear_database() {
+  show_message "Drush" "Dropping all tables in a given database"
+
+  if [ "$#" == 0 ]; then
+    execute_drush sql-drop --yes
+  else
+    execute_drush sql-drop $@
+  fi
+}
+
+alias edscd=execute_drush_clear_database
+
 execute_drush_cron() {
   show_message "Drush" "Running cron"
   execute_drush cron

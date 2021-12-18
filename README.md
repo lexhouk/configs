@@ -65,6 +65,12 @@ Some configuration for linux terminal and programs.
       <td colspan="4" align="center">Drush</td>
     </tr>
     <tr>
+      <td>edscd</td>
+      <td>*See [here](https://drushcommands.com/drush-8x/sql/sql-drop)*</td>
+      <td>Drop all tables in a given database</td>
+      <td>edscd --database=drupal</td>
+    </tr>
+    <tr>
       <td>edscn</td>
       <td>-</td>
       <td>Run cron</td>
