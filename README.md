@@ -66,7 +66,7 @@ Some configuration for linux terminal and programs.
     </tr>
     <tr>
       <td>edscd</td>
-      <td>*See [here](https://drushcommands.com/drush-8x/sql/sql-drop)*</td>
+      <td><i>See <a href="https://drushcommands.com/drush-8x/sql/sql-drop">here</a></i></td>
       <td>Drop all tables in a given database</td>
       <td>edscd --database=drupal</td>
     </tr>
@@ -113,6 +113,12 @@ Some configuration for linux terminal and programs.
       </td>
       <td>Re-clone repository when the current folder contains the repository. Otherwise, cloning a repository that is defined in a parameter.</td>
       <td>egc https://github.com/chmez/configs.git configs</td>
+    </tr>
+    <tr>
+      <td><a href="https://git-scm.com/docs/git-apply">egp</a></td>
+      <td>Filename</td>
+      <td>Apply a patch</td>
+      <td>egp core.patch</td>
     </tr>
     <tr>
       <td>egrv</td>

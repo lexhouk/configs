@@ -266,6 +266,18 @@ git_init() {
 
 alias egi=git_init
 
+execute_git_patch() {
+  show_message "Git" "Applying a patch"
+
+  if [ -z $1 ]; then
+    echo "The command should have at least one parameter!" >> /dev/stderr
+  else
+    git apply $@
+  fi
+}
+
+alias egp=execute_git_patch
+
 alias egr='git rm '
 alias egrs='git remote -v'
 alias egra='git remote add '
