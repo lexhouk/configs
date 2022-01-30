@@ -89,10 +89,14 @@ Some configuration for linux terminal and programs.
       <td>edsl 10</td>
     </tr>
     <tr>
+      <td>ei</td>
+      <td rowspan="2">Module or theme name(s)</td>
+      <td rowspan="2">Install extension(s)</td>
+      <td>ei config2php</td>
+    </tr>
+    <tr>
       <td>edsmi</td>
-      <td>Module name(s)</td>
-      <td>Install module(s)</td>
-      <td>edsmi taxonomy</td>
+      <td>edsmi config2php</td>
     </tr>
     <tr>
       <td>edsmu</td>

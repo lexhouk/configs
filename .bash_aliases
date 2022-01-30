@@ -796,6 +796,7 @@ execute_drush_module_install() {
   execute_drush -y en $@
 }
 
+alias ei=execute_drush_module_install
 alias edsmi=execute_drush_module_install
 
 execute_drush_module_uninstall() {
