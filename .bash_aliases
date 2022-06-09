@@ -535,7 +535,7 @@ execute_docker_execute() {
   if [ "$#" == 1 ]; then
     show_message "Docker" "Connecting to a container"
     arguments+=" bash"
-  else
+  elif [[ ${#FUNCNAME[@]} == 1 ]]; then
     show_message "Docker" "Executing any command"
   fi
 
