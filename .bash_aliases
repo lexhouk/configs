@@ -770,6 +770,13 @@ execute_drush_clear_database() {
 
 alias edscd=execute_drush_clear_database
 
+execute_drush_clear_log() {
+  show_message "Drush" "Clearing a log"
+  execute_drush wd-del all -y $@
+}
+
+alias edscl=execute_drush_clear_log
+
 execute_drush_cron() {
   show_message "Drush" "Running cron"
   execute_drush cron

@@ -71,6 +71,12 @@ Some configuration for linux terminal and programs.
       <td>edscd --database=drupal</td>
     </tr>
     <tr>
+      <td>edscl</td>
+      <td><i>See <a href="https://drushcommands.com/drush-8x/watchdog/watchdog-delete">here</a></i></td>
+      <td>Delete watchdog messages</td>
+      <td>edscl --type=cron</td>
+    </tr>
+    <tr>
       <td>edscn</td>
       <td>-</td>
       <td>Run cron</td>
