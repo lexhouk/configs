@@ -219,21 +219,32 @@ alias egbs=execute_git_branch
 
 execute_git_branch_environment() {
   local project=$(get_project)
-  local branch="$1"
+  local branch=''
 
   if ! [ -z $project ]; then
-    local special_branch=$(get "${project}$2_branch")
+    local special_branch=$(get "${project}$1_branch")
 
     if ! [ -z $special_branch ]; then
       branch=$special_branch
     fi
   fi
 
+  if [ -z $branch ]; then
+    for ((i = 2; i <= $#; i++ )); do
+      local exists=$(git branch --list ${!i})
+
+      if ! [ -z "${exists}" ]; then
+        branch=${!i}
+        break
+      fi
+    done
+  fi
+
   execute_git_branch $branch
 }
 
 alias egbd='execute_git_branch_environment dev dev'
-alias egbm='execute_git_branch_environment master live'
+alias egbm='execute_git_branch_environment live master main'
 
 execute_git_changes() {
   if [ "$#" == 0 ]; then
@@ -420,21 +431,32 @@ alias egl=execute_git_pull
 
 execute_git_pull_environment() {
   local project=$(get_project)
-  local branch="$1"
+  local branch=''
 
   if ! [ -z $project ]; then
-    local special_branch=$(get "${project}$2_branch")
+    local special_branch=$(get "${project}$1_branch")
 
     if ! [ -z $special_branch ]; then
       branch=$special_branch
     fi
   fi
 
+  if [ -z $branch ]; then
+    for ((i = 2; i <= $#; i++ )); do
+      local exists=$(git branch --list ${!i})
+
+      if ! [ -z "${exists}" ]; then
+        branch=${!i}
+        break
+      fi
+    done
+  fi
+
   execute_git_pull $branch
 }
 
 alias egld='execute_git_pull_environment dev dev'
-alias eglm='execute_git_pull_environment master live'
+alias eglm='execute_git_pull_environment live master main'
 
 git_stash() {
   show_message "Git" "Stashing the changes in a dirty working directory away"
