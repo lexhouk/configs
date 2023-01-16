@@ -886,6 +886,13 @@ execute_drush_user_login_uid_1_no_browser() {
 
 alias edslfn=execute_drush_uli_uid_no_browser
 
+execute_drush_queue() {
+  show_message "Drush" "Getting queues"
+  execute_drush queue-list $@
+}
+
+alias edsq=execute_drush_queue
+
 execute_drush_status() {
   show_message "Drush" "Getting status"
   execute_drush status

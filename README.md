@@ -111,6 +111,12 @@ Some configuration for linux terminal and programs.
       <td>edsmu ban</td>
     </tr>
     <tr>
+      <td>edsq</td>
+      <td><i>See <a href="https://drushcommands.com/drush-8x/core/queue-list">here</a></i></td>
+      <td>Returns a list of all defined queues</td>
+      <td>edsq --format=list</td>
+    </tr>
+    <tr>
       <td colspan="4" align="center">Git</td>
     </tr>
     <tr>
