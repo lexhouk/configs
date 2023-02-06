@@ -804,7 +804,7 @@ execute_drush_cron() {
   execute_drush cron
 }
 
-alias edscn=execute_drush_cron
+alias edsn=execute_drush_cron
 
 execute_drush_clear_root() {
   show_message "Drush" "Clearing all caches by root"

@@ -77,10 +77,10 @@ Some configuration for linux terminal and programs.
       <td>edscl --type=cron</td>
     </tr>
     <tr>
-      <td>edscn</td>
+      <td><a href="https://drushcommands.com/drush-8x/core/core-cron">edsn</a></td>
       <td>-</td>
       <td>Run cron</td>
-      <td>edscn</td>
+      <td>edsn</td>
     </tr>
     <tr>
       <td>edsf</td>
