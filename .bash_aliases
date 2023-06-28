@@ -215,7 +215,7 @@ execute_git_add() {
     git add .
   else
     show_message "Git" "Adding some changes"
-    git checkout $@
+    git add $@
   fi
 }
 
