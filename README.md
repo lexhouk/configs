@@ -120,6 +120,12 @@ Some configuration for linux terminal and programs.
       <td colspan="4" align="center">Git</td>
     </tr>
     <tr>
+      <td>ega</td>
+      <td><i>See <a href="https://git-scm.com/docs/git-add">here</a></i></td>
+      <td>Add file contents to the index</td>
+      <td>ega index.php</td>
+    </tr>
+    <tr>
       <td>egc</td>
       <td>
         <ul>

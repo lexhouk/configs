@@ -204,11 +204,22 @@ alias ecr=execute_composer_require
 # GIT
 
 alias gs='git status '
-alias ga='git add '
 alias gb='git branch '
 alias gba='git branch -a '
 alias gc='git commit -m '
 alias gd='git diff '
+
+execute_git_add() {
+  if [ "$#" == 0 ]; then
+    show_message "Git" "Adding all changes"
+    git add .
+  else
+    show_message "Git" "Adding some changes"
+    git checkout $@
+  fi
+}
+
+alias ega=execute_git_add
 
 execute_git_branch() {
   show_message "Git" "Switching to \"$1\" branch"
