@@ -42,6 +42,12 @@ Some configuration for linux terminal and programs.
       <td>eci --no-dev</td>
     </tr>
     <tr>
+      <td>ecp</td>
+      <td><i>See <a href="https://getcomposer.org/doc/03-cli.md#update-u-upgrade">here</a></i></td>
+      <td>Get the latest versions of packages without packages for development</td>
+      <td>ecp --no-progress</td>
+    </tr>
+    <tr>
       <td>ecr</td>
       <td>Package name</td>
       <td>Add package</td>

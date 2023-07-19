@@ -194,6 +194,13 @@ execute_composer_update_debug() {
 
 alias ecud=execute_composer_update_debug
 
+execute_composer_production() {
+  show_message "Composer" "Updating production"
+  composer update --no-dev $@
+}
+
+alias ecp=execute_composer_production
+
 execute_composer_require() {
   show_message "Composer" "Adding package"
   composer require $@
