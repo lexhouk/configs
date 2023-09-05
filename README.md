@@ -132,6 +132,12 @@ Some configuration for linux terminal and programs.
       <td>ega index.php</td>
     </tr>
     <tr>
+      <td><a href="https://git-scm.com/docs/git-switch">egbs</a></td>
+      <td>Branch name</td>
+      <td>Switching to specified or previous branch.</td>
+      <td>egbs main</td>
+    </tr>
+    <tr>
       <td>egc</td>
       <td>
         <ul>

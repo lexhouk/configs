@@ -229,8 +229,13 @@ execute_git_add() {
 alias ega=execute_git_add
 
 execute_git_branch() {
-  show_message "Git" "Switching to \"$1\" branch"
-  git checkout $1
+  if [ "$#" == 0 ]; then
+    show_message "Git" "Switching to the previous branch"
+    git switch -
+  else
+    show_message "Git" "Switching to \"$1\" branch"
+    git switch $1
+  fi
 }
 
 alias egbs=execute_git_branch
