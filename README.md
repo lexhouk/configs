@@ -51,7 +51,7 @@ Some configuration for linux terminal and programs.
       <td>ecr</td>
       <td>Package name</td>
       <td>Add package</td>
-      <td>ecr&nbsp;chmez/d8:^0.8</td>
+      <td>ecr&nbsp;lexhouk/d8:^0.14</td>
     </tr>
     <tr>
       <td colspan="4" align="center">Docker</td>
@@ -146,7 +146,7 @@ Some configuration for linux terminal and programs.
         </ul>
       </td>
       <td>Re-clone repository when the current folder contains the repository. Otherwise, cloning a repository that is defined in a parameter.</td>
-      <td>egc https://github.com/chmez/configs.git configs</td>
+      <td>egc https://github.com/lexhouk/configs.git configs</td>
     </tr>
     <tr>
       <td><a href="https://git-scm.com/docs/git-apply">egp</a></td>
